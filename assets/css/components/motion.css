@@ -1,0 +1,68 @@
+/* ==========================================================================
+   Motion: page-load entrance and on-scroll reveals.
+   Everything stays visible without JavaScript: the hidden starting states
+   only apply once the scripts have added .is-loading / .reveal-ready.
+   ========================================================================== */
+
+:root {
+  --rise-entrance: 10px;                        /* how far things rise as they appear */
+  --rise-reveal: 22px;
+  --rise-item: 12px;
+  --dur-canvas-fade: 1.8s;                      /* the film's first appearance */
+  --dur-canvas-settle: 3.2s;
+  --dur-draw: 2.2s;                             /* the diagram frame drawing itself */
+}
+
+@keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes rise-in { from { opacity: 0; transform: translateY(var(--rise-entrance)); } to { opacity: 1; transform: none; } }
+
+/* ---- Entrance: image first, then brand and nav, then the opening line -- */
+.story__canvas { transition: opacity var(--dur-canvas-fade) ease, transform var(--dur-canvas-settle) var(--ease-out); }
+.is-loading .story__canvas { opacity: 0; transform: scale(1.035); }
+
+.is-loading [data-entrance] { opacity: 0; }
+.is-loaded  [data-entrance] { animation: fade-in 1s ease var(--entrance-delay, 0s) backwards; }
+.is-loaded  [data-entrance="rise"] { animation-name: rise-in; animation-duration: var(--dur-slower); animation-timing-function: var(--ease-out); }
+
+/* Order of appearance */
+.brand             { --entrance-delay: .5s; }
+.site-nav          { --entrance-delay: .65s; }
+.beat__title[data-entrance] { --entrance-delay: 1s; }
+.beat__lead[data-entrance]  { --entrance-delay: 1.35s; }
+.timeline          { --entrance-delay: 1.8s; }
+.scroll-hint       { --entrance-delay: 2.1s; }
+
+/* ---- Reveal on scroll -------------------------------------------------- */
+.reveal-ready [data-reveal] { transition: opacity var(--dur-slow) ease, transform 1.1s var(--ease-out); }
+.reveal-ready [data-reveal]:not(.is-visible) { opacity: 0; transform: translateY(var(--rise-reveal)); }
+
+/* Parts reveal their lines in turn */
+.reveal-ready .part[data-reveal] > * { transition: opacity .8s ease, transform 1s var(--ease-out); }
+.reveal-ready .part[data-reveal]:not(.is-visible) > * { opacity: 0; transform: translateY(var(--rise-item)); }
+.reveal-ready .part.is-visible > :nth-child(2) { transition-delay: calc(var(--stagger) * 1); }
+.reveal-ready .part.is-visible > :nth-child(3) { transition-delay: calc(var(--stagger) * 2); }
+.reveal-ready .part.is-visible > :nth-child(4) { transition-delay: calc(var(--stagger) * 3); }
+
+/* The diagram builds itself: frame, layers, pillars, labels */
+.reveal-ready .diagram .diagram__frame { stroke-dasharray: 1.02 1.02; stroke-dashoffset: 1.02; transition: stroke-dashoffset var(--dur-draw) var(--ease-draw) .2s; }
+.reveal-ready .diagram.is-visible .diagram__frame { stroke-dashoffset: 0; }
+.reveal-ready .diagram .diagram__frame-label { opacity: 0; transition: opacity .8s ease 1.6s; }
+.reveal-ready .diagram.is-visible .diagram__frame-label { opacity: 1; }
+.reveal-ready .diagram .diagram__layer { opacity: 0; transform: translateY(var(--rise-entrance)); transition: opacity .7s ease, transform var(--dur-slow) var(--ease-out); }
+.reveal-ready .diagram.is-visible .diagram__layer { opacity: 1; transform: none; }
+.reveal-ready .diagram.is-visible .diagram__layer:nth-of-type(1) { transition-delay: .35s; }
+.reveal-ready .diagram.is-visible .diagram__layer:nth-of-type(2) { transition-delay: .5s; }
+.reveal-ready .diagram.is-visible .diagram__layer:nth-of-type(3) { transition-delay: .65s; }
+.reveal-ready .diagram .diagram__pillar rect { transform-box: fill-box; transform-origin: 50% 100%; transform: scaleY(0); transition: transform var(--dur-slower) var(--ease-out); }
+.reveal-ready .diagram .diagram__pillar text { opacity: 0; transition: opacity var(--dur-base) ease; }
+.reveal-ready .diagram.is-visible .diagram__pillar rect { transform: none; transition-delay: 1s; }
+.reveal-ready .diagram.is-visible .diagram__pillar:last-of-type rect { transition-delay: 1.2s; }
+.reveal-ready .diagram.is-visible .diagram__pillar text { opacity: 1; transition-delay: 1.8s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .is-loading .story__canvas { opacity: 1; transform: none; }
+  .is-loading [data-entrance] { opacity: 1; }
+  .reveal-ready [data-reveal]:not(.is-visible),
+  .reveal-ready .part[data-reveal]:not(.is-visible) > *,
+  .reveal-ready .diagram * { opacity: 1 !important; transform: none !important; stroke-dashoffset: 0 !important; }
+}

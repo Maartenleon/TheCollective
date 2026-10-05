@@ -1,0 +1,52 @@
+/* ==========================================================================
+   Base: document, element defaults, accessibility helpers
+   ========================================================================== */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body { background: var(--color-bg); }
+
+body {
+  margin: 0;
+  color: var(--color-text);
+  font-family: var(--font-serif);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3, p, ul, figure { margin: 0; }
+ul { padding: 0; list-style: none; }
+img, svg { max-width: 100%; }
+button { font: inherit; }
+
+/* Links inside reading text */
+.prose-link {
+  color: var(--color-text);
+  text-decoration: underline;
+  text-decoration-color: var(--color-line);
+  text-underline-offset: 3px;
+  transition: text-decoration-color var(--dur-fast) ease;
+}
+.prose-link:hover { text-decoration-color: var(--color-accent); }
+
+/* One focus style everywhere */
+:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: 3px;
+  border-radius: var(--radius-hair);
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-delay: 0s !important;
+    transition-duration: .01ms !important;
+    transition-delay: 0s !important;
+  }
+}

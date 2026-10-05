@@ -1,0 +1,18 @@
+/* ==========================================================================
+   Glass: the smoked-glass surface used by story panels and the dialog card
+   ========================================================================== */
+
+.glass {
+  background: var(--color-glass);
+  -webkit-backdrop-filter: var(--blur-glass);
+  backdrop-filter: var(--blur-glass);
+  border: 1px solid var(--color-line-faint);
+  border-radius: var(--radius-glass);
+  box-shadow: var(--shadow-glass);
+}
+
+.glass--strong {
+  background: var(--color-glass-strong);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+}

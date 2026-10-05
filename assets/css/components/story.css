@@ -1,0 +1,188 @@
+/* ==========================================================================
+   Story: the pinned, scroll-driven film at the top of the page.
+   Timing, camera and the position of anchored beats are set by
+   assets/js/story.js from assets/js/config.js; this file only styles.
+
+   Component tokens are declared on the component's root and derive from
+   tokens.css; change them here, not in the rules below.
+   ========================================================================== */
+
+.story {
+  --stage-floor-height: 22vh;                  /* dark fade behind the timeline */
+  --beat-top: 21vh;                            /* beats without an image anchor */
+  --beat-top-phone: 24vh;
+  position: relative;
+  height: var(--story-length);
+}
+
+.story__stage {
+  position: sticky;
+  top: env(safe-area-inset-top, 0px);
+  width: 100%;
+  height: 100vh;
+  height: 100svh;
+  overflow: hidden;
+  background: var(--color-bg);
+}
+
+.story__canvas { position: absolute; inset: 0; display: block; width: 100%; height: 100%; }
+
+/* Darkens the sky behind the closing question; faded in by the engine */
+.story__shade {
+  position: absolute; inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  background: linear-gradient(to bottom, var(--color-fade-floor), var(--color-fade-clear) 70%);
+}
+
+/* Keeps the timeline legible on the bright stage */
+.story__floor {
+  position: absolute; inset: auto 0 0 0;
+  height: var(--stage-floor-height);
+  pointer-events: none;
+  background: linear-gradient(to top, var(--color-fade-floor), var(--color-fade-clear));
+}
+
+/* ---- Beats: the lines of text that play over the film -------------------
+   One title style and one line style for every beat, so the eye never has
+   to re-read the hierarchy: the opening sets it, the rest follow. */
+.beats { position: absolute; inset: 0; pointer-events: none; }
+
+.beat {
+  position: absolute;
+  left: 50%;
+  top: var(--beat-top);
+  width: 100%;
+  max-width: min(var(--beat-width), calc(100% - 2 * var(--gutter)));
+  text-align: center;
+  text-shadow: var(--shadow-text);
+  opacity: 0;
+  will-change: transform, opacity, filter;
+}
+.beat[data-anchor] { top: 50vh; }              /* replaced by the engine once the image is placed */
+
+/* Centred in the viewport, both ways: for a beat that stands on its own (the closing question) */
+.beat--centred {
+  inset-block: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.beat__title {
+  font: var(--weight-regular) var(--text-beat)/var(--leading-beat) var(--font-serif);
+  letter-spacing: var(--tracking-beat);
+  text-wrap: balance;
+}
+
+.beat__lead,
+.beat__lines li {
+  font: italic var(--weight-regular) var(--text-lede)/var(--leading-lede) var(--font-serif);
+  color: var(--color-text-muted);
+  text-wrap: balance;
+}
+.beat__lead { margin-top: var(--space-3xs); }
+
+.beat__lines { display: grid; gap: var(--space-3xs); margin-top: var(--space-3xs); }
+.beat__lines li { opacity: 0; }                /* each line is faded in by the engine */
+
+.beat__cta { margin-top: var(--space-l); pointer-events: auto; }
+
+/* ---- Timeline: where you are in the story ------------------------------ */
+.timeline {
+  --timeline-bar-width: 120px;
+  --timeline-dot-size: 5px;
+  position: absolute;
+  left: var(--gutter);
+  bottom: var(--timeline-offset);
+  display: flex;
+  align-items: center;
+  gap: var(--space-s);
+  font: var(--weight-regular) var(--text-ui)/1 var(--font-sans);
+  font-variant-numeric: tabular-nums;
+  color: var(--color-text-muted);
+  pointer-events: none;
+}
+.timeline__bar  { position: relative; width: var(--timeline-bar-width); height: 1px; background: var(--color-line); }
+.timeline__fill { position: absolute; inset: 0; background: var(--color-text); transform-origin: 0 0; transform: scaleX(0); }
+.timeline__dot {
+  position: absolute;
+  top: calc(var(--timeline-dot-size) / -2 + .5px);
+  width: var(--timeline-dot-size);
+  height: var(--timeline-dot-size);
+  border-radius: 50%;
+  background: var(--color-highlight);
+  transform: translateX(-50%);
+}
+.timeline__label { color: var(--color-text); }
+
+.scroll-hint {
+  position: absolute;
+  left: 50%;
+  bottom: var(--timeline-offset);
+  transform: translateX(-50%);
+  font: var(--weight-regular) var(--text-ui)/1 var(--font-sans);
+  color: var(--color-text-muted);
+  pointer-events: none;
+}
+
+/* ---- Panels: one glass panel per part of the model --------------------- */
+.panels { position: absolute; inset: 0; pointer-events: none; }
+
+.panel {
+  --panel-padding: var(--space-m);
+  --panel-shift: 18px;                         /* how far a panel travels as it arrives */
+  position: absolute;
+  left: var(--gutter);
+  bottom: var(--panel-offset);
+  width: min(var(--panel-width), calc(100vw - 2 * var(--gutter)));
+  padding: var(--panel-padding);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translate3d(0, var(--panel-shift), 0) scale(.98);
+  transition: opacity .45s ease, transform .55s var(--ease-in-out), visibility 0s linear .55s;
+}
+.panel.is-active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: none;
+  transition: opacity .7s ease, transform var(--dur-slow) var(--ease-out), visibility 0s;
+}
+
+/* Contents arrive one after another */
+.panel > * { opacity: 0; transform: translateY(8px); transition: opacity var(--dur-fast) ease, transform var(--dur-fast) ease; }
+.panel.is-active > * { opacity: 1; transform: none; transition: opacity var(--dur-base) ease, transform .7s var(--ease-out); }
+.panel.is-active > :nth-child(1) { transition-delay: calc(var(--stagger) * 2); }
+.panel.is-active > :nth-child(2) { transition-delay: calc(var(--stagger) * 3); }
+.panel.is-active > :nth-child(3) { transition-delay: calc(var(--stagger) * 4); }
+.panel.is-active > :nth-child(4) { transition-delay: calc(var(--stagger) * 5); }
+.panel.is-active > :nth-child(5) { transition-delay: calc(var(--stagger) * 6); }
+
+.panel__kicker { margin-bottom: var(--space-s); font: var(--weight-medium) var(--text-ui)/1 var(--font-sans); color: var(--color-highlight); }
+.panel__title  { margin-bottom: var(--space-xs); font: var(--weight-regular) var(--text-h3)/var(--leading-heading) var(--font-serif); text-wrap: balance; }
+.panel__body   { font: var(--weight-regular) var(--text-ui)/var(--leading-ui) var(--font-sans); color: var(--color-text-muted); }
+.panel__link {
+  display: inline-block;
+  margin-top: var(--space-s);
+  padding-bottom: 2px;
+  font: var(--weight-medium) var(--text-ui)/1 var(--font-sans);
+  color: var(--color-text);
+  text-decoration: none;
+  border-bottom: 1px solid var(--color-line);
+  transition: border-color var(--dur-fast) ease;
+}
+.panel__link:hover { border-bottom-color: var(--color-accent); }
+
+/* ---- Phones: panels and timeline span the width, shorter panel ---------- */
+@media (max-width: 720px) {
+  .beat:not(.beat--centred) { top: var(--beat-top-phone); }
+  .timeline { right: var(--gutter); }
+  .timeline__bar { flex: 1; width: auto; }
+  .scroll-hint { display: none; }
+
+  .panel { --panel-padding: var(--space-s) var(--space-m); right: var(--gutter); width: auto; }
+  .panel__title { font-size: var(--text-h3-sm); }
+}

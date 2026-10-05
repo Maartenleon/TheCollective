@@ -1,0 +1,25 @@
+/* ==========================================================================
+   Fonts
+   EB Garamond (serif) and Figtree (sans fallback) load from Google Fonts in
+   index.html. Restart Soft is the intended sans: it is a commercial font, so
+   it is not bundled. Once licensed, place the webfont files in assets/fonts/
+   and uncomment the block below. Nothing else needs to change: --font-sans in
+   tokens.css already lists Restart Soft first.
+   ========================================================================== */
+
+/*
+@font-face {
+  font-family: "Restart Soft";
+  src: url("../fonts/RestartSoft-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Restart Soft";
+  src: url("../fonts/RestartSoft-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+*/

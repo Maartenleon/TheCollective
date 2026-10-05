@@ -1,0 +1,30 @@
+/* ==========================================================================
+   Diagram: Plan, Blueprint and Means as layers, Run and Change as pillars,
+   Orchestration as the frame. A wide and a phone version share these styles.
+   Sizes inside the SVG are in its own units (they scale with the drawing).
+   ========================================================================== */
+
+.diagram {
+  --diagram-max: 470px;
+  --diagram-max-phone: 400px;
+  --diagram-name: 22px;                         /* layer names */
+  --diagram-small: 12px;                        /* descriptions and labels */
+  margin-top: var(--space-xl);
+}
+.diagram__svg { display: block; width: 100%; height: auto; }
+.diagram__svg--wide  { max-width: var(--diagram-max); }
+.diagram__svg--phone { display: none; max-width: var(--diagram-max-phone); }
+
+@media (max-width: 560px) {
+  .diagram__svg--wide  { display: none; }
+  .diagram__svg--phone { display: block; }
+}
+
+.diagram__frame        { fill: none; stroke: var(--color-diagram-frame); stroke-width: 1; }
+.diagram__layer rect   { fill: var(--color-diagram-fill); stroke: var(--color-diagram-line); stroke-width: 1; }
+.diagram__pillar rect  { fill: var(--color-pillar-fill); stroke: var(--color-pillar-line); stroke-width: 1; }
+
+.diagram__name   { font: var(--weight-regular) var(--diagram-name) var(--font-serif); fill: var(--color-text); }
+.diagram__desc   { font: var(--weight-regular) var(--diagram-small) var(--font-sans); fill: var(--color-text-subtle); }
+.diagram__label  { font: var(--weight-medium) var(--diagram-small) var(--font-sans); fill: var(--color-highlight); }
+.diagram__pillar .diagram__label { text-anchor: middle; }

@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Collective · Styleguide</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;1,400&family=Figtree:wght@400;500&display=swap">
+<link rel="stylesheet" href="assets/css/fonts.css">
+<link rel="stylesheet" href="assets/css/tokens.css">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/components/button.css">
+<link rel="stylesheet" href="assets/css/components/glass.css">
+<link rel="stylesheet" href="assets/css/components/story.css">
+<link rel="stylesheet" href="assets/css/components/sections.css">
+<link rel="stylesheet" href="assets/css/components/tag.css">
+<link rel="stylesheet" href="assets/css/components/symptoms.css">
+<link rel="stylesheet" href="assets/css/components/diagram.css">
+<link rel="stylesheet" href="assets/css/components/dialog.css">
+<link rel="stylesheet" href="assets/css/styleguide.css">
+<script src="assets/js/util.js" defer></script>
+<script src="assets/js/styleguide.js" defer></script>
+</head>
+<body>
+<main class="sg">
+  <div class="sg__inner">
+
+    <header class="sg__block">
+      <p class="eyebrow">The Collective</p>
+      <h1 class="section__title">Styleguide</h1>
+      <p class="section__text">Every value on this page is read live from <code>assets/css/tokens.css</code>. Change a token there and the site and this page change together. Usage rules are in <code>docs/DESIGN-SYSTEM.md</code>.</p>
+    </header>
+
+    <!-- Palette -->
+    <section class="sg__block">
+      <p class="eyebrow">Palette</p>
+      <div class="sg__grid">
+        <div class="sg__swatch" data-token="--palette-shadow" data-chip><div class="sg__chip"></div><span class="sg__name">Shadow</span><span class="sg__code" data-token-value></span></div>
+        <div class="sg__swatch" data-token="--palette-garnet" data-chip><div class="sg__chip"></div><span class="sg__name">Garnet</span><span class="sg__code" data-token-value></span></div>
+        <div class="sg__swatch" data-token="--palette-vermilion" data-chip><div class="sg__chip"></div><span class="sg__name">Vermilion</span><span class="sg__code" data-token-value></span></div>
+        <div class="sg__swatch" data-token="--palette-cream" data-chip><div class="sg__chip"></div><span class="sg__name">Cream</span><span class="sg__code" data-token-value></span></div>
+        <div class="sg__swatch" data-token="--palette-paper" data-chip><div class="sg__chip"></div><span class="sg__name">Paper</span><span class="sg__code" data-token-value></span></div>
+      </div>
+      <p class="sg__note">Components never use the palette directly. They use the roles below, so a colour can change meaning in one place.</p>
+    </section>
+
+    <!-- Roles -->
+    <section class="sg__block">
+      <p class="eyebrow">Colour roles</p>
+      <div class="sg__grid">
+        <div class="sg__swatch" data-token="--color-bg" data-chip><div class="sg__chip"></div><span class="sg__name">Background</span><span class="sg__code" data-token-value></span></div>
+        <div class="sg__swatch" data-token="--color-text" data-chip><div class="sg__chip"></div><span class="sg__name">Text</span><span class="sg__code" data-token-value></span></div>
+        <div class="sg__swatch" data-token="--color-text-body" data-chip><div class="sg__chip"></div><span class="sg__name">Reading text</span><span class="sg__code" data-token-value></span></div>
+        <div class="sg__swatch" data-token="--color-text-muted" data-chip><div class="sg__chip"></div><span class="sg__name">Muted text</span><span class="sg__code" data-token-value></span></div>
+        <div class="sg__swatch" data-token="--color-highlight" data-chip><div class="sg__chip"></div><span class="sg__name">Highlight</span><span class="sg__code" data-token-value></span></div>
+        <div class="sg__swatch" data-token="--color-accent" data-chip><div class="sg__chip"></div><span class="sg__name">Accent (once per view)</span><span class="sg__code" data-token-value></span></div>
+        <div class="sg__swatch" data-token="--color-line" data-chip><div class="sg__chip"></div><span class="sg__name">Line</span><span class="sg__code" data-token-value></span></div>
+        <div class="sg__swatch" data-token="--color-glass" data-chip><div class="sg__chip"></div><span class="sg__name">Glass</span><span class="sg__code" data-token-value></span></div>
+      </div>
+    </section>
+
+    <!-- Type -->
+    <section class="sg__block">
+      <p class="eyebrow">Type</p>
+      <div>
+        <div class="sg__row"><span class="sg__code" data-token="--text-beat"></span><p class="beat__title">When an organisation plays as one,</p></div>
+        <div class="sg__row"><span class="sg__code" data-token="--text-lede"></span><p class="beat__lead">it looks effortless.</p></div>
+        <div class="sg__row"><span class="sg__code" data-token="--text-h2"></span><p class="section__title">One whole, four parts.</p></div>
+        <div class="sg__row"><span class="sg__code" data-token="--text-h3-lg"></span><p class="part__title">What we want to play</p></div>
+        <div class="sg__row"><span class="sg__code" data-token="--text-body"></span><p class="section__text">The plan holds the ambition, the choices and the goals.</p></div>
+        <div class="sg__row"><span class="sg__code" data-token="--text-ui"></span><p class="eyebrow">Navigation, buttons, labels, the timeline</p></div>
+              </div>
+      <p class="sg__note">Serif (EB Garamond) carries the story; sans (Restart Soft, Figtree until licensed) only labels and controls it. Over the film, every beat uses the same title and the same italic line, set by the opening. Italic never runs a whole paragraph.</p>
+    </section>
+
+    <!-- Space -->
+    <section class="sg__block">
+      <p class="eyebrow">Space</p>
+      <div>
+        <div class="sg__row"><span class="sg__code" data-token="--space-3xs"></span><div class="sg__space" data-size="--space-3xs"></div></div>
+        <div class="sg__row"><span class="sg__code" data-token="--space-2xs"></span><div class="sg__space" data-size="--space-2xs"></div></div>
+        <div class="sg__row"><span class="sg__code" data-token="--space-xs"></span><div class="sg__space" data-size="--space-xs"></div></div>
+        <div class="sg__row"><span class="sg__code" data-token="--space-s"></span><div class="sg__space" data-size="--space-s"></div></div>
+        <div class="sg__row"><span class="sg__code" data-token="--space-m"></span><div class="sg__space" data-size="--space-m"></div></div>
+        <div class="sg__row"><span class="sg__code" data-token="--space-l"></span><div class="sg__space" data-size="--space-l"></div></div>
+        <div class="sg__row"><span class="sg__code" data-token="--space-xl"></span><div class="sg__space" data-size="--space-xl"></div></div>
+        <div class="sg__row"><span class="sg__code" data-token="--space-2xl"></span><div class="sg__space" data-size="--space-2xl"></div></div>
+        <div class="sg__row"><span class="sg__code" data-token="--space-section"></span><div class="sg__space" data-size="--space-section"></div></div>
+      </div>
+    </section>
+
+    <!-- Components -->
+    <section class="sg__block">
+      <p class="eyebrow">Components</p>
+      <div class="sg__stage">
+        <aside class="panel glass is-active" aria-label="Example panel">
+          <p class="panel__kicker">Orchestration &middot; the conductor</p>
+          <h3 class="panel__title">The whole, in motion</h3>
+          <p class="panel__body">Programme, score and orchestra, playing together, live. Deciding every day what plays, what waits, and who is needed where.</p>
+          <a class="panel__link" href="#">More on orchestration &darr;</a>
+        </aside>
+      </div>
+      <p class="sg__note"><code>.panel.glass</code>: one per part of the model, bottom left over the film. Kicker, title, what the part means in the orchestra, link to the framework section.</p>
+
+      <div class="sg__inline">
+        <button class="btn btn--outline" type="button">Contact us</button>
+        <button class="btn btn--solid" type="button">Send</button>
+        <a class="prose-link" href="#">A link in reading text</a>
+      </div>
+      <p class="sg__note"><code>.btn--outline</code> for every call to action, <code>.btn--solid</code> only to submit a form.</p>
+
+      <ul class="tags" aria-label="Example tags"><li class="tag">People</li><li class="tag">Process</li><li class="tag">Technology</li><li class="tag">Spend</li></ul>
+      <p class="sg__note"><code>.tags</code> / <code>.tag</code>: concepts a section relates to. Labels, never links.</p>
+
+      <div class="symptom-group">
+        <p class="symptom-group__part">Plan &middot; the programme</p>
+        <h3 class="symptom-group__title">Are we working on the right things?</h3>
+        <details class="symptom" open>
+          <summary class="symptom__line">We have 40 initiatives running, and nobody can tell me which three actually matter.</summary>
+          <div class="symptom__body">
+            <p class="symptom__roles">CEO &middot; COO</p>
+            <p class="symptom__cause">The strategy names ambitions but makes no choices. Every idea becomes a project, and nothing is ranked against anything else.</p>
+            <ul class="tags" aria-label="Related concepts"><li class="tag">Strategic prioritisation</li><li class="tag">Project portfolio management</li><li class="tag">OKRs</li></ul>
+          </div>
+        </details>
+        <details class="symptom">
+          <summary class="symptom__line">We&rsquo;re good at starting things. We almost never stop anything.</summary>
+          <div class="symptom__body"><p class="symptom__cause">Closed state.</p></div>
+        </details>
+      </div>
+      <p class="sg__note"><code>.symptom-group</code> / <code>.symptom</code>: a symptom in the executive&rsquo;s own words, opening to who feels it, the cause and its tags.</p>
+
+      <div class="dialog__card glass glass--strong sg__card">
+        <h2 class="dialog__title">Let&rsquo;s talk.</h2>
+        <p class="dialog__lead">Tell us a little about your organisation.</p>
+        <label class="field"><span class="field__label">Name</span><input class="field__input" type="text"></label>
+        <button class="btn btn--solid dialog__submit" type="button">Send</button>
+      </div>
+
+      <figure class="diagram">
+        <svg class="diagram__svg diagram__svg--wide" viewBox="0 0 470 354" role="img" aria-label="Framework diagram">
+          <rect class="diagram__frame" x="12" y="12" width="446" height="330" rx="26"/>
+          <text class="diagram__label diagram__frame-label" x="36" y="46">Orchestration</text>
+          <g class="diagram__layer"><rect x="36" y="72" width="398" height="70" rx="12"/><text class="diagram__name" x="54" y="104">Plan</text><text class="diagram__desc" x="54" y="122">the programme</text></g>
+          <g class="diagram__layer"><rect x="36" y="154" width="398" height="70" rx="12"/><text class="diagram__name" x="54" y="186">Blueprint</text><text class="diagram__desc" x="54" y="204">the score</text></g>
+          <g class="diagram__layer"><rect x="36" y="236" width="398" height="70" rx="12"/><text class="diagram__name" x="54" y="268">Means</text><text class="diagram__desc" x="54" y="286">the orchestra tonight</text></g>
+          <g class="diagram__pillar"><rect x="260" y="60" width="72" height="258" rx="10"/><text class="diagram__label" x="296" y="46">Run</text></g>
+          <g class="diagram__pillar"><rect x="344" y="60" width="72" height="258" rx="10"/><text class="diagram__label" x="380" y="46">Change</text></g>
+        </svg>
+      </figure>
+    </section>
+
+    <!-- Motion -->
+    <section class="sg__block">
+      <p class="eyebrow">Motion</p>
+      <div>
+        <div class="sg__row"><span class="sg__code" data-token="--ease-out"></span><p class="sg__note">Arrivals: quick, then settle.</p></div>
+        <div class="sg__row"><span class="sg__code" data-token="--ease-in-out"></span><p class="sg__note">Departures.</p></div>
+        <div class="sg__row"><span class="sg__code" data-token="--dur-fast"></span><p class="sg__note">Hover, focus, small changes.</p></div>
+        <div class="sg__row"><span class="sg__code" data-token="--dur-slow"></span><p class="sg__note">Panels and sections arriving.</p></div>
+        <div class="sg__row"><span class="sg__code" data-token="--stagger"></span><p class="sg__note">Delay between items that appear in turn.</p></div>
+      </div>
+      <p class="sg__note">Nothing moves for its own sake: motion either follows the scroll or confirms that something arrived. Everything respects reduced motion.</p>
+    </section>
+
+  </div>
+</main>
+</body>
+</html>

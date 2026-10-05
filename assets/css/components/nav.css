@@ -1,0 +1,56 @@
+/* ==========================================================================
+   Top bar: brand (left), navigation (right), and a fade behind both once
+   the visitor has scrolled past the film (html.is-past-story, set by ui.js).
+   ========================================================================== */
+
+:root {
+  --nav-top: calc(var(--nav-offset) + env(safe-area-inset-top, 0px));
+  --nav-fade-height: calc(84px + env(safe-area-inset-top, 0px));
+  --brand-nudge: 10px;                          /* aligns the brand with the middle of the button */
+}
+
+.brand {
+  position: fixed;
+  z-index: var(--z-nav);
+  top: calc(var(--nav-top) + var(--brand-nudge));
+  left: var(--gutter);
+  font: var(--weight-medium) var(--text-ui)/1 var(--font-sans);
+  letter-spacing: var(--tracking-ui);
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+.site-nav {
+  position: fixed;
+  z-index: var(--z-nav);
+  top: var(--nav-top);
+  right: var(--gutter);
+  display: flex;
+  align-items: center;
+  gap: var(--space-l);
+}
+
+.site-nav__link {
+  font: var(--weight-medium) var(--text-ui)/1 var(--font-sans);
+  color: var(--color-text);
+  text-decoration: none;
+  opacity: .82;
+  transition: opacity var(--dur-fast) ease;
+}
+.site-nav__link:hover { opacity: 1; }
+
+.nav-fade {
+  position: fixed;
+  z-index: var(--z-nav-fade);
+  inset: 0 0 auto 0;
+  height: var(--nav-fade-height);
+  pointer-events: none;
+  background: linear-gradient(to bottom, var(--color-fade-strong), var(--color-fade-clear));
+  opacity: 0;
+  transition: opacity var(--dur-fast) ease;
+}
+.is-past-story .nav-fade { opacity: 1; }
+
+@media (max-width: 560px) {
+  .site-nav { gap: var(--space-m); }
+}

@@ -1,0 +1,72 @@
+/* ==========================================================================
+   Sections below the story: framework, about, contact, footer
+   ========================================================================== */
+
+.section {
+  --section-anchor-offset: 110px;               /* anchor targets land below the fixed top bar */
+  --section-top: var(--space-section);
+  padding-inline: var(--gutter);
+  padding-block: var(--section-top) var(--space-section);
+  background: var(--color-bg);
+  scroll-margin-top: max(0px, calc(var(--section-anchor-offset) - var(--section-top)));
+}
+.section--first { --section-top: var(--space-section-lg); }
+.section--last  { padding-bottom: var(--space-section-end); }
+
+.section__inner {
+  display: grid;
+  gap: var(--space-2xl);
+  max-width: var(--measure);
+  margin: 0 auto;
+}
+.section__inner--tight { gap: var(--space-xl); }
+
+.section__head,
+.part { scroll-margin-top: var(--section-anchor-offset); }
+
+.eyebrow {
+  margin-bottom: var(--space-m);
+  font: var(--weight-medium) var(--text-ui)/1 var(--font-sans);
+  color: var(--color-highlight);
+}
+
+.section__title {
+  margin-bottom: var(--space-m);
+  font: var(--weight-regular) var(--text-h2)/var(--leading-heading) var(--font-serif);
+  text-wrap: balance;
+}
+
+.section__text,
+.part__text,
+.person__bio {
+  font: var(--weight-regular) var(--text-body)/var(--leading-body) var(--font-serif);
+  color: var(--color-text-body);
+}
+.section__text + .section__text { margin-top: var(--space-m); }
+.section__text--strong { color: var(--color-text); }
+.section__cta { margin-top: var(--space-l); }
+
+/* ---- Framework parts --------------------------------------------------- */
+.part__title { margin-bottom: var(--space-s); font: var(--weight-regular) var(--text-h3-lg)/var(--leading-snug) var(--font-serif); }
+
+/* ---- People ------------------------------------------------------------ */
+.people { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-xl); }
+.person__name { margin-bottom: var(--space-2xs); font: var(--weight-regular) var(--text-h3)/var(--leading-snug) var(--font-serif); }
+.person__role { margin-bottom: var(--space-s); font: var(--weight-medium) var(--text-ui)/1.4 var(--font-sans); color: var(--color-highlight); }
+.person__bio  { font-size: var(--text-body-sm); }
+
+/* ---- Footer ------------------------------------------------------------ */
+.site-footer {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-m);
+  padding: var(--space-m) var(--gutter) calc(var(--space-m) + env(safe-area-inset-bottom, 0px));
+  border-top: 1px solid var(--color-line-hair);
+  font: var(--weight-regular) var(--text-ui)/1 var(--font-sans);
+  color: var(--color-text-muted);
+  background: var(--color-bg);
+}
+
+@media (max-width: 720px) {
+  .people { grid-template-columns: minmax(0, 1fr); }
+}

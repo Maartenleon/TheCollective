@@ -1,0 +1,61 @@
+/* ==========================================================================
+   Symptoms: what leadership teams recognise, grouped by the part of the
+   framework where each one starts. Every symptom is a <details> element:
+   one quiet line until opened, then who feels it, the cause and the
+   concepts it relates to. Content stays in the page for search engines.
+   ========================================================================== */
+
+.symptoms { display: grid; gap: var(--space-2xl); }
+
+.symptom-group { display: grid; }
+.symptom-group__part {
+  margin-bottom: var(--space-s);
+  font: var(--weight-medium) var(--text-ui)/1 var(--font-sans);
+  color: var(--color-highlight);
+}
+.symptom-group__title {
+  margin-bottom: var(--space-m);
+  font: var(--weight-regular) var(--text-h3-lg)/var(--leading-snug) var(--font-serif);
+}
+
+.symptom { border-top: 1px solid var(--color-line-hair); }
+.symptom:last-child { border-bottom: 1px solid var(--color-line-hair); }
+
+.symptom__line {
+  --symptom-mark: 1.4rem;                       /* room for the + on the right */
+  position: relative;
+  display: block;
+  padding: var(--space-s) var(--symptom-mark) var(--space-s) 0;
+  font: italic var(--weight-regular) var(--text-body)/var(--leading-snug) var(--font-serif);
+  color: var(--color-text);
+  cursor: pointer;
+  list-style: none;
+  transition: color var(--dur-fast) ease;
+}
+.symptom__line::-webkit-details-marker { display: none; }
+.symptom__line::after {
+  content: "+";
+  position: absolute;
+  top: var(--space-s);
+  right: 0;
+  font: var(--weight-regular) var(--text-body)/var(--leading-snug) var(--font-sans);
+  color: var(--color-text-muted);
+  transition: transform var(--dur-fast) var(--ease-out), color var(--dur-fast) ease;
+}
+.symptom__line:hover,
+.symptom[open] .symptom__line { color: var(--color-highlight); }
+.symptom[open] .symptom__line::after { transform: rotate(45deg); color: var(--color-highlight); }
+
+.symptom__body { padding-bottom: var(--space-l); }
+.symptom[open] .symptom__body { animation: rise-in var(--dur-base) var(--ease-out); }
+
+.symptom__roles {
+  margin-bottom: var(--space-2xs);
+  font: var(--weight-medium) var(--text-ui)/1.4 var(--font-sans);
+  color: var(--color-text-muted);
+}
+.symptom__cause {
+  font: var(--weight-regular) var(--text-body-sm)/var(--leading-body) var(--font-serif);
+  color: var(--color-text-body);
+}
+.symptom__body .tags { margin-top: var(--space-s); }

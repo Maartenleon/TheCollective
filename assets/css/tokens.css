@@ -1,0 +1,152 @@
+/* ==========================================================================
+   The Collective — design tokens
+   The single source of truth for colour, type, space, shape and motion.
+   Components never use raw values; they read these tokens. The story engine
+   (assets/js/story.js) reads the canvas tokens at the bottom of this file.
+
+   Breakpoints (CSS variables cannot be used inside media queries, so these
+   are fixed values used consistently across the component files):
+     --bp-phone    560px   small phones: compact navigation, phone diagram
+     --bp-portrait 720px   phones and narrow tablets: docked panels, stacked grids
+   ========================================================================== */
+
+:root {
+  color-scheme: dark;
+
+  /* ---- Palette: raw colours, named after where they come from -------- */
+  --palette-shadow:    #1A0E0A;   /* deepest shadow in the dunes; the page ground */
+  --palette-garnet:    #5C0F07;   /* brand red: concert-hall plush */
+  --palette-vermilion: #F1400B;   /* the conductor's coat; the one accent */
+  --palette-paper:     #FAF8F6;   /* parchment; primary text on dark */
+  --palette-cream:     #FCE8D8;   /* bright cream with a hint of peach */
+
+  /* Channel versions of the same colours, for alpha variants: rgb(var(--rgb-x) / .5) */
+  --rgb-shadow:    26 14 10;
+  --rgb-paper:     250 248 246;
+  --rgb-cream:     252 232 216;
+  --rgb-vermilion: 241 64 11;
+
+  /* ---- Colour roles: what components actually use -------------------- */
+  --color-bg:            var(--palette-shadow);
+  --color-text:          var(--palette-paper);
+  --color-text-body:     rgb(var(--rgb-paper) / .82);
+  --color-text-muted:    rgb(var(--rgb-paper) / .72);
+  --color-text-subtle:   rgb(var(--rgb-paper) / .62);
+  --color-highlight:     var(--palette-cream);       /* italic lines, labels, hover */
+  --color-accent:        var(--palette-vermilion);   /* used once per view */
+  --color-brand:         var(--palette-garnet);
+
+  --color-line:          rgb(var(--rgb-paper) / .36);
+  --color-line-soft:     rgb(var(--rgb-paper) / .22);
+  --color-line-faint:    rgb(var(--rgb-paper) / .12);
+  --color-line-hair:     rgb(var(--rgb-paper) / .08);
+
+  --color-glass:         rgb(var(--rgb-shadow) / .34);
+  --color-glass-strong:  rgb(var(--rgb-shadow) / .50);
+  --color-overlay:       rgb(var(--rgb-shadow) / .45);
+  --color-fade-strong:   rgb(var(--rgb-shadow) / .92);
+  --color-fade-floor:    rgb(var(--rgb-shadow) / .50);
+  --color-fade-clear:    rgb(var(--rgb-shadow) / 0);
+
+  --color-diagram-fill:  rgb(var(--rgb-paper) / .04);
+  --color-diagram-line:  rgb(var(--rgb-paper) / .22);
+  --color-diagram-frame: rgb(var(--rgb-cream) / .55);
+  --color-pillar-fill:   rgb(var(--rgb-vermilion) / .10);
+  --color-pillar-line:   rgb(var(--rgb-vermilion) / .55);
+
+  /* ---- Typography ----------------------------------------------------- */
+  --font-serif: "EB Garamond", "Garamond", Georgia, serif;
+  --font-sans:  "Restart Soft", "Restart Soft Premium", "Figtree", ui-sans-serif, system-ui, sans-serif;
+
+  --weight-regular: 400;
+  --weight-medium:  500;
+
+  --text-ui:         0.75rem;                      /* 12px  navigation, buttons, timeline, labels */
+  --text-field:      1rem;                         /* 16px  form input (16px stops iOS zooming in) */
+  --text-close:      1.125rem;                     /* 18px  the × that closes the dialog */
+  --text-body-sm:    1.0625rem;                    /* 17px  body on phones, bios */
+  --text-body:       1.1875rem;                    /* 19px  reading text */
+  --text-lede:       clamp(1.05rem, 1.45vw, 1.4rem); /* every italic line under a title over the film */
+  --text-h3-sm:      1.25rem;                      /* panel titles on phones */
+  --text-h3:         1.45rem;
+  --text-h3-lg:      1.6rem;
+  --text-h2:         clamp(2rem, 4vw, 3rem);
+  --text-beat:       clamp(1.5rem, 2.3vw, 2.25rem); /* every title over the film */
+
+  --leading-beat:      1.1;                        /* titles over the film */
+  --leading-heading:   1.15;                       /* h2 and card titles */
+  --leading-snug:      1.2;                        /* h3 */
+  --leading-lede:      1.25;                       /* italic lines over the film */
+  --leading-field:     1.4;
+  --leading-ui:        1.6;
+  --leading-body:      1.7;
+  --tracking-beat:      -0.005em;
+  --tracking-ui:         0.02em;
+
+  /* ---- Space ------------------------------------------------------------ */
+  --space-3xs: 0.25rem;
+  --space-2xs: 0.4rem;
+  --space-xs:  0.6rem;
+  --space-s:   0.85rem;
+  --space-m:   1.25rem;
+  --space-l:   1.75rem;
+  --space-xl:  2.5rem;
+  --space-2xl: clamp(3rem, 6vw, 4.5rem);          /* between blocks inside a section */
+  --space-section: clamp(3rem, 7vw, 5rem);         /* between sections */
+  --space-section-lg: clamp(6rem, 14vw, 10rem);    /* first section after the story */
+  --space-section-end: clamp(5rem, 12vw, 8rem);    /* below the last section */
+
+  /* ---- Layout ----------------------------------------------------------- */
+  --gutter:        clamp(20px, 7vw, 120px);
+  --measure:       40rem;                          /* reading width (~65 characters) */
+  --beat-width:    46rem;
+  --panel-width:   20rem;
+  --nav-offset:    20px;                           /* distance of the top bar from the edge */
+  --panel-offset:  72px;                           /* glass panel above the bottom edge */
+  --timeline-offset: 30px;                         /* timeline above the bottom edge */
+  --story-length:  1250vh;                         /* scroll distance of the film */
+
+  /* ---- Shape and depth -------------------------------------------------- */
+  --radius-hair:  2px;
+  --radius-glass: 18px;
+  --radius-card:  20px;
+  --radius-pill:  999px;
+  --blur-glass:   blur(18px) saturate(1.15);
+  --blur-overlay: blur(14px);
+  --shadow-glass: 0 20px 50px -30px rgb(0 0 0 / .6);
+  --shadow-card:  0 30px 80px -40px rgb(0 0 0 / .8);
+  --shadow-text:  0 1px 30px rgb(var(--rgb-shadow) / .45);   /* lifts text off a bright sky */
+  --focus-ring:   2px solid var(--color-highlight);
+
+  /* ---- Motion ----------------------------------------------------------- */
+  --ease-out:     cubic-bezier(.16, .84, .24, 1);  /* arrivals: quick, then settle */
+  --ease-in-out:  cubic-bezier(.4, 0, .6, 1);      /* departures */
+  --ease-draw:    cubic-bezier(.45, 0, .2, 1);     /* lines drawing themselves */
+  --dur-fast:   .3s;
+  --dur-base:   .6s;
+  --dur-slow:   .9s;
+  --dur-slower: 1.2s;
+  --stagger:    .08s;                              /* delay between items appearing in turn */
+
+  /* ---- Layers ----------------------------------------------------------- */
+  --z-nav-fade: 19;
+  --z-nav:      20;
+  --z-dialog:   30;
+
+  /* ---- Canvas (read by the story engine) -------------------------------- */
+  --rgb-canvas-shade: var(--rgb-shadow);           /* dims everything outside the focus */
+  --rgb-glow-core:    255 236 214;                 /* warm light inside the subject */
+  --rgb-glow:         255 226 196;
+  --rgb-glow-rim:     255 186 140;                 /* soft rim of light around it */
+}
+
+/* Phones and narrow tablets: same system, adjusted distances */
+@media (max-width: 720px) {
+  :root {
+    --panel-offset:    calc(124px + env(safe-area-inset-bottom, 0px));
+    --timeline-offset: calc(60px + env(safe-area-inset-bottom, 0px));
+    --story-length:    1100vh;
+    --text-h2:         1.85rem;
+    --text-body:       var(--text-body-sm);
+  }
+}

@@ -1,0 +1,85 @@
+/* ==========================================================================
+   Contact dialog: blurred overlay with a glass card and a minimal form.
+   Opened and closed by ui.js (.is-open).
+   ========================================================================== */
+
+.dialog {
+  --dialog-width: 26rem;
+  --dialog-padding: var(--space-m);
+  --card-padding: var(--space-xl) var(--space-l) var(--space-l);
+  --card-shift: 18px;
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-dialog);
+  display: grid;
+  grid-template-columns: minmax(0, var(--dialog-width));
+  justify-content: center;
+  align-content: center;
+  padding: var(--dialog-padding);
+  background: var(--color-overlay);
+  -webkit-backdrop-filter: blur(0);
+  backdrop-filter: blur(0);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--dur-base) ease, -webkit-backdrop-filter var(--dur-base) ease, backdrop-filter var(--dur-base) ease, visibility 0s linear var(--dur-base);
+}
+.dialog.is-open {
+  opacity: 1;
+  visibility: visible;
+  -webkit-backdrop-filter: var(--blur-overlay);
+  backdrop-filter: var(--blur-overlay);
+  transition: opacity var(--dur-base) ease, -webkit-backdrop-filter var(--dur-base) ease, backdrop-filter var(--dur-base) ease, visibility 0s;
+}
+
+.dialog__card {
+  position: relative;
+  width: 100%;
+  padding: var(--card-padding);
+  opacity: 0;
+  transform: translateY(var(--card-shift)) scale(.98);
+  transition: transform var(--dur-fast) ease, opacity var(--dur-fast) ease;
+}
+.dialog.is-open .dialog__card {
+  opacity: 1;
+  transform: none;
+  transition: transform var(--dur-slow) var(--ease-out) var(--stagger), opacity var(--dur-base) ease var(--stagger);
+}
+
+.dialog__title { margin-bottom: var(--space-2xs); font: var(--weight-regular) var(--text-h3-lg)/var(--leading-heading) var(--font-serif); }
+.dialog__lead  { margin-bottom: var(--space-l); font: var(--weight-regular) var(--text-ui)/var(--leading-ui) var(--font-sans); color: var(--color-text-muted); }
+
+.dialog__close {
+  --close-size: 32px;
+  position: absolute; top: var(--space-s); right: var(--space-s);
+  width: var(--close-size); height: var(--close-size);
+  border: 0; border-radius: 50%;
+  background: none;
+  color: var(--color-text-muted);
+  font: var(--weight-regular) var(--text-close)/1 var(--font-sans);
+  cursor: pointer;
+}
+.dialog__close:hover { color: var(--color-text); }
+
+.dialog__submit { margin-top: var(--space-xs); }
+.dialog__note { min-height: 1.2em; margin-top: var(--space-m); font: var(--weight-regular) var(--text-ui)/var(--leading-ui) var(--font-sans); color: var(--color-highlight); }
+
+/* ---- Fields: a single line that lights up when active ------------------ */
+.field { display: block; margin-bottom: var(--space-m); }
+.field__label { display: block; margin-bottom: var(--space-2xs); font: var(--weight-regular) var(--text-ui)/1 var(--font-sans); color: var(--color-text-muted); }
+.field__input {
+  width: 100%;
+  padding: var(--space-3xs) 0 var(--space-2xs);
+  color: var(--color-text);
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--color-line-soft);
+  border-radius: 0;
+  font: var(--weight-regular) var(--text-field)/var(--leading-field) var(--font-serif);
+  resize: none;
+  transition: border-color var(--dur-fast) ease;
+}
+.field__input:focus { outline: none; border-bottom-color: var(--color-highlight); }
+
+@media (max-width: 560px) {
+  .dialog { --dialog-padding: var(--space-xl) var(--space-l); --card-padding: var(--space-l) var(--space-m) var(--space-m); }
+}
