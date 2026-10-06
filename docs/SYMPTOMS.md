@@ -1,6 +1,6 @@
 # Symptoms: what leadership teams recognise
 
-The twenty symptoms we work from, eight of which are on the site, with who feels each one most, where it starts in the framework, the cause, the concepts people search for, and the evidence that it is common.
+The twenty-one symptoms we work from, eight of which are on the site, with who feels each one most, where it starts in the framework, the cause, the concepts people search for, and the evidence that it is common.
 
 Use this file as the reference when you edit them in `index.html`, write landing pages or articles, or pick statements for a deck or LinkedIn post. Statistics are here for our own confidence and for longer articles; the site itself does not quote them yet.
 

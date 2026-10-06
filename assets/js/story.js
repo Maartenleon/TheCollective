@@ -73,14 +73,15 @@
     }
     return w;
   }
-  /* Props on the stage (config.overlays); they load on their own and never hold up the page */
-  const overlays = (C.overlays || []).map(o => { const img = new Image(); img.src = o.src; return { ...o, img }; });
-
   /** The picture to draw: the video once it has a frame, else the image */
   const source = w => (w.videoEl && w.videoEl.readyState >= 2 ? w.videoEl : w.img);
+
   const scene = world(C.images.scene);
   const finale = world(C.images.finale);
   const images = [scene.img, scene.softImg, finale.img];
+
+  /* Props on the stage (config.overlays); they load on their own and never hold up the page */
+  const overlays = (C.overlays || []).map(o => { const img = new Image(); img.src = o.src; return { ...o, img }; });
 
   /* ---- State ------------------------------------------------------------ */
   let vw = 0, vh = 0, dpr = 1;
@@ -287,7 +288,7 @@
       const still = reduceMotion.matches;
       const shift = still ? 0 : (1 - a) * Math.max(0, vw - x);     // from just past the right edge
       ctx.save();
-      ctx.globalAlpha = still ? a : Math.min(1, a * 1.6);
+      ctx.globalAlpha = still ? a : Math.min(1, a * 1.6);           // fully opaque well before it lands
       ctx.drawImage(o.img, x + shift, y, w, h);
       ctx.restore();
     }
@@ -375,17 +376,20 @@
     if (shade) shade.style.opacity = (smooth(T.shade.range[0], T.shade.range[1], p) * T.shade.strength).toFixed(3);
   }
 
+  let playRequest = null;
   /** The closing video: loads as the film nears it, plays only while it is on screen */
   function syncVideo(p) {
     const v = finale.videoEl;
     if (!v || !ready) return;
     if (!v.src && p >= finale.loadFrom) { v.src = finale.video; v.load(); }
     const visible = p > C.transitions.finaleCut[0] && !reduceMotion.matches;
-    if (visible && v.paused && v.src) v.play().then(redrawWhilePlaying, () => {});   // blocked (e.g. low power): the poster stays
-    else if (!visible && !v.paused) v.pause();
+    if (visible && v.paused && v.src && !playRequest) {
+      // one request at a time; if playing is blocked (e.g. low power mode) the poster stays
+      playRequest = v.play().catch(() => {}).finally(() => { playRequest = null; });
+    } else if (!visible && !v.paused) v.pause();
   }
 
-  /** While the video plays, redraw on each of its frames even if nobody scrolls */
+  /** While the video plays, redraw on each of its frames even if nobody scrolls (started by its play event) */
   function redrawWhilePlaying() {
     const v = finale.videoEl;
     const next = cb => (v.requestVideoFrameCallback ? v.requestVideoFrameCallback(cb) : requestAnimationFrame(cb));
@@ -448,6 +452,7 @@
   scene.img.src = scene.src;
   scene.softImg.src = scene.soft;
   finale.img.src = finale.src;
+  finale.videoEl?.addEventListener("play", redrawWhilePlaying);
 
   document.fonts?.ready.then(layout);                          // text sizes change once the fonts arrive
   window.addEventListener("scroll", request, { passive: true });

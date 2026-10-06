@@ -72,7 +72,8 @@ TC.config = {
   },
 
   /* Parts of the model the camera looks at. Keys match data-panel in the HTML.
-     spots: ellipses [x, y, radiusX, radiusY] kept sharp and lit; the rest is blurred and dimmed. */
+     spots: ellipses [x, y, radiusX, radiusY] kept sharp; the rest is blurred and dimmed.
+     glow (per part) scales focus.glow when that is switched on. */
   focus: {
     fade: 0.022,
     envelope: [0.165, 0.212, 0.622, 0.680],

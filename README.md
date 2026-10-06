@@ -24,11 +24,11 @@ assets/
     ui.js                      load state, reveals, navigation fade, contact dialog
     styleguide.js              styleguide page only
   img/
-    scene.jpg  scene-soft.jpg  sign.png (programme sign at Plan)  finale.mp4 + finale-poster.jpg (closing video)  finale.jpg (unused)  og.jpg (share image, 1200 × 630)
+    scene.jpg  scene-soft.jpg  sign.png (programme sign at Plan)  finale.mp4 + finale-poster.jpg (closing video)  og.jpg (share image, 1200 × 630)
   icons/                       favicon.svg, favicon-32.png, apple-touch-icon.png, icon-512.png
 docs/
   DESIGN-SYSTEM.md             tokens, components, rules, recipes
-  SYMPTOMS.md                  the twenty symptoms: roles, causes, tags, evidence, sources
+  SYMPTOMS.md                  the twenty-one symptoms: roles, causes, tags, evidence, sources
 tools/
   build_standalone.py          builds one self-contained HTML file for sharing
   set_domain.py                writes canonical URL, share image, robots.txt and sitemap.xml for a domain
