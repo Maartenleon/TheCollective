@@ -6,7 +6,7 @@
 :root {
   --nav-top: calc(var(--nav-offset) + env(safe-area-inset-top, 0px));
   --nav-fade-height: calc(84px + env(safe-area-inset-top, 0px));
-  --brand-nudge: 10px;                          /* aligns the brand with the middle of the button */
+  --brand-nudge: 9.5px;                         /* aligns the brand with the middle of the button */
 }
 
 .brand {
@@ -14,8 +14,9 @@
   z-index: var(--z-nav);
   top: calc(var(--nav-top) + var(--brand-nudge));
   left: var(--gutter);
-  font: var(--weight-medium) var(--text-ui)/1 var(--font-sans);
-  letter-spacing: var(--tracking-ui);
+  font: var(--weight-medium) var(--text-brand)/1 var(--font-sans);
+  letter-spacing: var(--tracking-brand);
+  text-transform: uppercase;
   color: var(--color-text);
   text-decoration: none;
 }

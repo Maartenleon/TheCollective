@@ -62,6 +62,7 @@
   --weight-medium:  500;
 
   --text-ui:         0.75rem;                      /* 12px  navigation, buttons, timeline, labels */
+  --text-brand:      0.6875rem;                    /* 11px  the brand name in the top bar (capitals) */
   --text-field:      1rem;                         /* 16px  form input (16px stops iOS zooming in) */
   --text-close:      1.125rem;                     /* 18px  the × that closes the dialog */
   --text-body-sm:    1.0625rem;                    /* 17px  body on phones, bios */
@@ -83,6 +84,7 @@
   --leading-body:      1.7;
   --tracking-beat:      -0.005em;
   --tracking-ui:         0.02em;
+  --tracking-brand:      0.16em;                     /* the brand name, set in capitals */
 
   /* ---- Space ------------------------------------------------------------ */
   --space-3xs: 0.25rem;
@@ -144,7 +146,7 @@
 /* Phones and narrow tablets: same system, adjusted distances */
 @media (max-width: 720px) {
   :root {
-    --panel-offset:    calc(124px + env(safe-area-inset-bottom, 0px));
+    --panel-offset:    calc(100px + env(safe-area-inset-bottom, 0px));
     --timeline-offset: calc(60px + env(safe-area-inset-bottom, 0px));
     --story-length:    1100vh;
     --text-h2:         1.85rem;

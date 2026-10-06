@@ -149,7 +149,7 @@ Everything the film does is in `assets/js/config.js`. Coordinates are pixels in 
 - **Camera**: two kinds of keyframe.
   - A *view* `{ t, cx, cy, fw, fh }`: a region that must fit on screen. Portrait screens get their own framing rules (`layout.portrait`).
   - A *subject* `{ t, subject: [x0, y0, x1, y1], panel }`: a box fitted into the free space between the navigation and the top of the named panel, measured on every screen. Plan (the full orchestra), Means (the musicians) and the conductor use this, so they are always entirely above their glass panel. An optional `portraitSubject` replaces the box on phones (Means uses it to stay close enough to see faces).
-- **Focus**: the parts of the model, each with a scroll range and sharp, lit spots; everything else is softened, dimmed and the subject gets a warm glow.
+- **Focus**: the parts of the model, each with a scroll range and sharp, lit spots; everything else is softened and dimmed. A warm glow on the subject is available but switched off (`focus.glow.on`).
 - **Copy**: when each beat and line fades in and out. Keys match `data-beat` / `data-copy` in the HTML.
 - **Snap**: the stops where the film rests. Inside the film, one wheel gesture, swipe or arrow key moves to the next stop as a single eased camera move (longer moves take a little longer). After the last stop the page scrolls normally again; scrolling up from below re-enters at the last stop. A free scroll (scrollbar, a link) settles on the nearest stop. When you add a part of the model, add its stop here too.
 - **Anchors**: image points that `data-anchor` beats sit above. The opening, "It isn't." and "Great parts…" share the conductor anchor, so the eye stays in one place.

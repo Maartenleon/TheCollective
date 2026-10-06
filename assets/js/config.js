@@ -7,7 +7,7 @@
 
    Units
    - Progress runs from 0 (top of the film) to 1 (end of the film).
-   - Image coordinates are pixels in the source image (scene.jpg is 2944 × 1560,
+   - Image coordinates are pixels in the source image (scene.jpg is 2944 × 1648,
      the closing video finale.mp4 832 × 464).
    - A window [a, b, c, d] fades in between a and b and out between c and d.
    ========================================================================== */
@@ -17,10 +17,10 @@ window.TC = window.TC || {};
 TC.config = {
   images: {
     // sky and ground are sampled from each image; they fill the screen where the camera looks past its edges
-    scene:  { src: "assets/img/scene.jpg",  soft: "assets/img/scene-soft.jpg", width: 2944, height: 1560, sky: "#8092A7", ground: "#1A0E0A" },
+    scene:  { src: "assets/img/scene.jpg",  soft: "assets/img/scene-soft.jpg", width: 2944, height: 1648, sky: "#999FB0", ground: "#111204" },
     // the closing world is a looping video; src is its first frame, shown until the video plays
     finale: { src: "assets/img/finale-poster.jpg", video: "assets/img/finale.mp4", loadFrom: 0.6,
-              width: 832, height: 464, sky: "#6984AD", ground: "#050502" },
+              width: 832, height: 464, sky: "#989EAF", ground: "#111204" },
   },
 
   /* Chapters shown in the timeline, in order */
@@ -35,31 +35,32 @@ TC.config = {
   ],
 
   /* Camera keyframes for the scene.
-     Either a view:  { t, cx, cy, fw, fh }  centre point and the region that must fit on screen,
+     Either a view:  { t, cx, cy, fw, fh }  centre point and the region that must fit on screen
+                     (optional portraitCx: the centre on phones, where wide shots are cropped),
      or a subject:   { t, subject: [x0, y0, x1, y1], panel }  a box that is fitted into the free
                      space above the named glass panel and below the navigation, on every screen;
                      an optional portraitSubject is used instead on portrait screens (phones). */
   camera: [
-    { t: 0.000, cx: 1472, cy: 780,  fw: 2944, fh: 1560 },          // the whole orchestra in the dunes
-    { t: 0.175, cx: 1472, cy: 860,  fw: 2700, fh: 1430 },          // slow drift while "It isn't." plays
-    { t: 0.215, subject: [520, 820, 2440, 1445], panel: "plan" },  // Plan: the full orchestra under the dunes
-    { t: 0.290, subject: [560, 840, 2400, 1440], panel: "plan" },
-    { t: 0.325, cx: 1590, cy: 1290, fw: 900,  fh: 400 },           // Blueprint: the scores on the stands
-    { t: 0.395, cx: 1592, cy: 1292, fw: 860,  fh: 385 },
-    { t: 0.430, subject: [760, 1225, 2320, 1440], portraitSubject: [1330, 1225, 2320, 1440], panel: "means" },   // Means: the musicians, all above the panel
-    { t: 0.500, subject: [790, 1230, 2290, 1438], portraitSubject: [1360, 1230, 2300, 1438], panel: "means" },   // (phones: conductor and cellos, large enough to see)
-    { t: 0.535, subject: [1300, 1150, 1545, 1435], panel: "orchestration" },   // Orchestration: the conductor, head to podium
-    { t: 0.615, subject: [1310, 1155, 1535, 1430], panel: "orchestration" },
-    { t: 0.705, cx: 1472, cy: 940,  fw: 2800, fh: 1480 },          // the whole again
-    { t: 1.000, cx: 1472, cy: 950,  fw: 2760, fh: 1460 },
+    { t: 0.000, cx: 1472, cy: 824,  fw: 2944, fh: 1648, portraitCx: 1610 },   // the whole orchestra on its stage, hills behind
+    { t: 0.175, cx: 1500, cy: 930,  fw: 2600, fh: 1455, portraitCx: 1610 },   // slow drift while "It isn't." plays
+    { t: 0.215, subject: [1080, 990, 2400, 1330], panel: "plan" }, // Plan: the full orchestra, and the sign as it slides on
+    { t: 0.290, subject: [1095, 1000, 2385, 1326], panel: "plan" },
+    { t: 0.325, cx: 1694, cy: 1205, fw: 580,  fh: 250 },           // Blueprint: the scores on the stands
+    { t: 0.395, cx: 1696, cy: 1206, fw: 560,  fh: 242 },
+    { t: 0.430, subject: [1120, 1095, 2110, 1300], portraitSubject: [1430, 1095, 2110, 1300], panel: "means" },   // Means: the musicians, all above the panel
+    { t: 0.500, subject: [1135, 1100, 2095, 1298], portraitSubject: [1445, 1100, 2100, 1298], panel: "means" },   // (phones: conductor and cellos, large enough to see)
+    { t: 0.535, subject: [1430, 1090, 1625, 1294], panel: "orchestration" },   // Orchestration: the conductor, head to podium
+    { t: 0.615, subject: [1438, 1094, 1617, 1292], panel: "orchestration" },
+    { t: 0.705, cx: 1500, cy: 1000, fw: 2700, fh: 1510, portraitCx: 1610 },   // the whole again
+    { t: 1.000, cx: 1500, cy: 1010, fw: 2660, fh: 1490, portraitCx: 1610 },
   ],
 
   /* Closing image: a slow pull back for the question */
   // portraitLift (optional, any view keyframe) overrides layout.portrait.lift: negative values
   // sit the orchestra lower, here to keep it clear of the centred closing question on phones
   finaleCamera: [
-    { t: 0.800, cx: 420, cy: 226, fw: 610, fh: 340, portraitLift: -0.14 },
-    { t: 1.000, cx: 416, cy: 232, fw: 832, fh: 464, portraitLift: -0.14 },
+    { t: 0.800, cx: 440, cy: 262, fw: 640, fh: 357, portraitLift: -0.14, portraitCx: 455 },
+    { t: 1.000, cx: 416, cy: 232, fw: 832, fh: 464, portraitLift: -0.14, portraitCx: 455 },
   ],
 
   transitions: {
@@ -78,16 +79,17 @@ TC.config = {
     dim: 0.52,                                 // how dark the surroundings get
     feather: { extent: 1.35, core: 0.62 },     // how softly the sharp area blends into the blur
     glow: {                                    // a warm spotlight on the subject
+      on: false,                               // off: the subject stays sharp but is not lit
       core: 0.2, mid: 0.1, rim: 0.1,           // strengths
       radius: 1.3, midStop: 0.65,              // inner light, relative to the spot
       rimFrom: 0.7, rimTo: 2.1, rimPeak: 0.3,  // rim of light around it
     },
     panel: { on: 0.6, off: 0.3 },              // hysteresis so panels never flicker
     parts: [
-      { key: "plan",          range: [0.207, 0.296], glow: 0.55, spots: [[1530, 1335, 830, 125]] },
-      { key: "blueprint",     range: [0.318, 0.402], spots: [[1478, 1292, 38, 30], [1585, 1334, 30, 22], [1786, 1300, 40, 30]] },
-      { key: "means",         range: [0.424, 0.506], spots: [[1060, 1330, 330, 90], [1975, 1330, 340, 95]] },
-      { key: "orchestration", range: [0.528, 0.622], spots: [[1421, 1300, 70, 115]] },
+      { key: "plan",          range: [0.207, 0.296], glow: 0.55, spots: [[1615, 1195, 530, 115], [2221, 1182, 125, 155], [1720, 1296, 760, 42]] },   // orchestra, sign, and the stage floor that joins them
+      { key: "blueprint",     range: [0.318, 0.402], spots: [[1555, 1192, 34, 16], [1608, 1210, 20, 22], [1712, 1206, 20, 22], [1828, 1214, 20, 24]] },
+      { key: "means",         range: [0.424, 0.506], spots: [[1290, 1205, 175, 80], [1865, 1205, 235, 85]] },
+      { key: "orchestration", range: [0.528, 0.622], spots: [[1522, 1192, 62, 105]] },
     ],
   },
 
@@ -107,8 +109,14 @@ TC.config = {
   /* Points in the image that beats with data-anchor sit above: the opening,
      "It isn't." and "Great parts…" all appear in the same spot, centred over the conductor */
   anchors: {
-    conductor: [1421, 1150],
+    conductor: [1515, 1030],
   },
+
+  /* Props on the stage: an image placed at box [x0, y0, x1, y1] in the scene, drawn sharp over the
+     focus. Over window [a, b, c, d] it slides in from the right edge of the screen and back out. */
+  overlays: [
+    { src: "assets/img/sign.png", box: [2118, 1047, 2324, 1318], show: [0.200, 0.246, 0.298, 0.322] },   // the programme sign, at Plan
+  ],
 
   /* How a view keyframe is fitted to the screen */
   layout: {

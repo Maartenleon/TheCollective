@@ -18,6 +18,8 @@
      [data-scroll-hint]    the "Scroll" hint
      [data-safe-top]       fixed elements the film keeps clear of (brand, navigation)
 
+   Props listed in config.overlays (e.g. the programme sign) slide onto the stage over the film.
+
    Emits   "story:ready" on document once the images have loaded
            (TC.story.ready tells late listeners it already happened).
    Exposes TC.story.go(progress) to jump to a point in the film, and
@@ -71,6 +73,9 @@
     }
     return w;
   }
+  /* Props on the stage (config.overlays); they load on their own and never hold up the page */
+  const overlays = (C.overlays || []).map(o => { const img = new Image(); img.src = o.src; return { ...o, img }; });
+
   /** The picture to draw: the video once it has a frame, else the image */
   const source = w => (w.videoEl && w.videoEl.readyState >= 2 ? w.videoEl : w.img);
   const scene = world(C.images.scene);
@@ -110,7 +115,8 @@
   // A camera is { cx, cy, s, top, floor }: the image point at the centre of the screen,
   // the scale, and how far above (top < 0) or below (floor > height) the image it may look.
 
-  /** A view keyframe { cx, cy, fw, fh }: a region that must fit on screen. */
+  /** A view keyframe { cx, cy, fw, fh }: a region that must fit on screen.
+      Optional portraitCx and portraitLift adjust it on portrait screens. */
   function fromView(k, w) {
     const L = C.layout, aspect = vw / vh;
     let s, top = 0, floor = w.height, lift = 0;
@@ -128,7 +134,7 @@
       floor = w.height + h * lerp(P.band[0], P.band[1], zoom);
       lift = h * (k.portraitLift ?? P.lift) * (1 - zoom);
     }
-    return { cx: k.cx, cy: k.cy + lift, s, top, floor };
+    return { cx: (aspect < 1 && k.portraitCx) || k.cx, cy: k.cy + lift, s, top, floor };
   }
 
   /** A subject keyframe { subject: [x0, y0, x1, y1], panel }: a box fitted into the free
@@ -270,6 +276,23 @@
     ctx.restore();
   }
 
+  /** Each prop slides in from the right edge of the screen to its place in the scene, and back out */
+  function drawOverlays(cam, p) {
+    for (const o of overlays) {
+      const a = windowed(p, o.show);
+      if (a < 0.002 || !o.img.naturalWidth) continue;
+      const [x0, y0, x1, y1] = o.box;
+      const [x, y] = toScreen(cam, x0, y0);
+      const w = (x1 - x0) * cam.s, h = (y1 - y0) * cam.s;
+      const still = reduceMotion.matches;
+      const shift = still ? 0 : (1 - a) * Math.max(0, vw - x);     // from just past the right edge
+      ctx.save();
+      ctx.globalAlpha = still ? a : Math.min(1, a * 1.6);
+      ctx.drawImage(o.img, x + shift, y, w, h);
+      ctx.restore();
+    }
+  }
+
   function drawFrame(p, weights) {
     const T = C.transitions;
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
@@ -282,8 +305,9 @@
       const amount = windowed(p, F.envelope);
       if (amount > 0.002) {
         drawFocus(cam, amount, weights);
-        drawGlow(cam, amount, weights);
+        if (F.glow.on) drawGlow(cam, amount, weights);
       }
+      drawOverlays(cam, p);
     }
     if (cut > 0) {
       ctx.save();
