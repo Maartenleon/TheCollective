@@ -67,8 +67,9 @@
       <div>
         <div class="sg__row"><span class="sg__code" data-token="--text-beat"></span><p class="beat__title">When an organisation plays as one,</p></div>
         <div class="sg__row"><span class="sg__code" data-token="--text-lede"></span><p class="beat__lead">it looks effortless.</p></div>
-        <div class="sg__row"><span class="sg__code" data-token="--text-h2"></span><p class="section__title">One whole, four parts.</p></div>
-        <div class="sg__row"><span class="sg__code" data-token="--text-h3-lg"></span><p class="part__title">What we want to play</p></div>
+        <div class="sg__row"><span class="sg__code" data-token="--text-h2"></span><p class="section__title">A synergy of four parts.</p></div>
+        <div class="sg__row"><span class="sg__code" data-token="--text-part"></span><p class="part__name">Plan</p></div>
+        <div class="sg__row"><span class="sg__code" data-token="--text-lede"></span><p class="part__title">What we want to play</p></div>
         <div class="sg__row"><span class="sg__code" data-token="--text-body"></span><p class="section__text">The plan holds the ambition, the choices and the goals.</p></div>
         <div class="sg__row"><span class="sg__code" data-token="--text-ui"></span><p class="eyebrow">Navigation, buttons, labels, the timeline</p></div>
               </div>
@@ -115,22 +116,19 @@
       <p class="sg__note"><code>.tags</code> / <code>.tag</code>: concepts a section relates to. Labels, never links.</p>
 
       <div class="symptom-group">
-        <p class="symptom-group__part">Plan &middot; the programme</p>
-        <h3 class="symptom-group__title">Are we working on the right things?</h3>
-        <details class="symptom" open>
+        <details class="symptom" data-collapse open>
           <summary class="symptom__line">We have 40 initiatives running, and nobody can tell me which three actually matter.</summary>
           <div class="symptom__body">
-            <p class="symptom__roles">CEO &middot; COO</p>
             <p class="symptom__cause">The strategy names ambitions but makes no choices. Every idea becomes a project, and nothing is ranked against anything else.</p>
             <ul class="tags" aria-label="Related concepts"><li class="tag">Strategic prioritisation</li><li class="tag">Project portfolio management</li><li class="tag">OKRs</li></ul>
           </div>
         </details>
-        <details class="symptom">
+        <details class="symptom" data-collapse>
           <summary class="symptom__line">We&rsquo;re good at starting things. We almost never stop anything.</summary>
           <div class="symptom__body"><p class="symptom__cause">Closed state.</p></div>
         </details>
       </div>
-      <p class="sg__note"><code>.symptom-group</code> / <code>.symptom</code>: a symptom in the executive&rsquo;s own words, opening to who feels it, the cause and its tags.</p>
+      <p class="sg__note"><code>.symptom-group</code> / <code>.symptom</code>: the list of eight above the framework. A symptom in the executive&rsquo;s own words, opening, with a short slide, to the cause and its tags.</p>
 
       <div class="dialog__card glass glass--strong sg__card">
         <h2 class="dialog__title">Let&rsquo;s talk.</h2>

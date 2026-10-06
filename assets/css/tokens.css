@@ -71,6 +71,7 @@
   --text-h3:         1.45rem;
   --text-h3-lg:      1.6rem;
   --text-h2:         clamp(2rem, 4vw, 3rem);
+  --text-part:       clamp(1.85rem, 3vw, 2.4rem);  /* framework part names: below h2, above everything in the part */
   --text-beat:       clamp(1.5rem, 2.3vw, 2.25rem); /* every title over the film */
 
   --leading-beat:      1.1;                        /* titles over the film */
@@ -147,6 +148,7 @@
     --timeline-offset: calc(60px + env(safe-area-inset-bottom, 0px));
     --story-length:    1100vh;
     --text-h2:         1.85rem;
+    --text-part:       1.75rem;
     --text-body:       var(--text-body-sm);
   }
 }

@@ -57,11 +57,22 @@
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
   /* ---- Worlds: an image plus the colours that continue it off its edges -- */
+  // With def.video the image is its poster: shown until the video can play, and
+  // what the page waits for. The video loads only once the film nears it.
   function world(def) {
     const w = { ...def, skyRgb: channels(def.sky), groundRgb: channels(def.ground), img: new Image() };
     if (def.soft) w.softImg = new Image();
+    if (def.video) {
+      const v = w.videoEl = document.createElement("video");
+      v.muted = v.loop = v.playsInline = true;
+      v.preload = "none";
+      v.setAttribute("playsinline", "");
+      v.setAttribute("aria-hidden", "true");
+    }
     return w;
   }
+  /** The picture to draw: the video once it has a frame, else the image */
+  const source = w => (w.videoEl && w.videoEl.readyState >= 2 ? w.videoEl : w.img);
   const scene = world(C.images.scene);
   const finale = world(C.images.finale);
   const images = [scene.img, scene.softImg, finale.img];
@@ -110,7 +121,7 @@
       // Portrait: wide shots let the sky continue above the image and a dark band run below it;
       // close-ups fill the width and leave room below for the docked glass panel.
       const P = L.portrait;
-      const zoom = clamp((P.wideFrom - k.fw) / (P.wideFrom - P.closeFrom), 0, 1);   // 0 wide, 1 close-up
+      const zoom = clamp((P.wideFrom - k.fw / w.width) / (P.wideFrom - P.closeFrom), 0, 1);   // 0 wide, 1 close-up
       s = vw / (k.fw * lerp(P.widthShare[0], P.widthShare[1], zoom));
       const h = vh / s;
       top = -h * P.skyRoom * (1 - zoom);
@@ -121,9 +132,10 @@
   }
 
   /** A subject keyframe { subject: [x0, y0, x1, y1], panel }: a box fitted into the free
-      space between the navigation and the top of the named panel, on any screen. */
+      space between the navigation and the top of the named panel, on any screen.
+      An optional portraitSubject replaces the box on portrait screens. */
   function fromSubject(k, w) {
-    const [x0, y0, x1, y1] = k.subject;
+    const [x0, y0, x1, y1] = (vw < vh && k.portraitSubject) || k.subject;
     const top = safe.top, bottom = safe.panelTop[k.panel] ?? vh - C.layout.safeGap;
     const left = safe.gutter, right = vw - safe.gutter;
     const s = Math.min((right - left) / (x1 - x0), (bottom - top) / (y1 - y0)) * C.layout.subjectFill;
@@ -169,7 +181,7 @@
 
     // Clip the source rectangle to the image ourselves (Safari draws nothing if it overflows)
     const x0 = Math.max(0, sx), y0 = Math.max(0, sy);
-    const x1 = Math.min(img.naturalWidth, sx + cam.w), y1 = Math.min(img.naturalHeight, sy + cam.h);
+    const x1 = Math.min(w.width, sx + cam.w), y1 = Math.min(w.height, sy + cam.h);
     if (x1 <= x0 || y1 <= y0) return;
     g.drawImage(img, x0, y0, x1 - x0, y1 - y0, (x0 - sx) * cam.s, (y0 - sy) * cam.s, (x1 - x0) * cam.s, (y1 - y0) * cam.s);
 
@@ -276,7 +288,7 @@
     if (cut > 0) {
       ctx.save();
       ctx.globalAlpha = cut;
-      drawWorld(ctx, finale.img, cameraAt(keys.finale, Math.max(p, C.finaleCamera[0].t), finale), finale);
+      drawWorld(ctx, source(finale), cameraAt(keys.finale, Math.max(p, C.finaleCamera[0].t), finale), finale);
       ctx.restore();
     }
     const dip = windowed(p, T.dip);
@@ -339,6 +351,24 @@
     if (shade) shade.style.opacity = (smooth(T.shade.range[0], T.shade.range[1], p) * T.shade.strength).toFixed(3);
   }
 
+  /** The closing video: loads as the film nears it, plays only while it is on screen */
+  function syncVideo(p) {
+    const v = finale.videoEl;
+    if (!v || !ready) return;
+    if (!v.src && p >= finale.loadFrom) { v.src = finale.video; v.load(); }
+    const visible = p > C.transitions.finaleCut[0] && !reduceMotion.matches;
+    if (visible && v.paused && v.src) v.play().then(redrawWhilePlaying, () => {});   // blocked (e.g. low power): the poster stays
+    else if (!visible && !v.paused) v.pause();
+  }
+
+  /** While the video plays, redraw on each of its frames even if nobody scrolls */
+  function redrawWhilePlaying() {
+    const v = finale.videoEl;
+    const next = cb => (v.requestVideoFrameCallback ? v.requestVideoFrameCallback(cb) : requestAnimationFrame(cb));
+    const frame = () => { if (v.paused) return; render(current); next(frame); };
+    next(frame);
+  }
+
   let lastCam = null;
   function render(p) {
     const weights = focusWeights(p);
@@ -347,6 +377,7 @@
     fadeCopy(p);
     updatePanels(weights);
     updateChrome(p);
+    syncVideo(p);
     lastDrawn = p;
   }
 

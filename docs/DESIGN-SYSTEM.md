@@ -67,7 +67,7 @@ Two typefaces, with strictly separate jobs.
 |---|---|
 | `--text-beat` | Every title over the film: the opening, "It isn't.", "Great parts…", the closing question |
 | `--text-lede` | Every italic line under a title over the film |
-| `--text-h2` / `--text-h3-lg` / `--text-h3` | Section, part and person titles |
+| `--text-h2` / `--text-part` / `--text-h3` | Section titles, framework part names (Plan, Blueprint, …), person names. A part's subtitle is an italic `--text-lede` line |
 | `--text-body` / `--text-body-sm` | Reading text (`body-sm` on phones and in bios) |
 | `--text-ui` | All sans text: nav, buttons, labels, timeline |
 
@@ -124,7 +124,7 @@ Rules: motion either follows the scroll or confirms that something arrived. Noth
 | Section | `.section(--first/--last)`, `__inner(--tight)`, `__head`, `__title`, `__text(--strong)`, `__cta`, `.eyebrow` | Content below the film. |
 | Part, person | `.part`, `.person` and their `__` elements | |
 | Tags | `.tags`, `.tag` | Quiet pills naming the concepts a part or symptom relates to (the words people search for). Labels, never links. |
-| Symptoms | `.symptoms`, `.symptom-group`, `__part`, `__title`; `.symptom` (`<details>`), `__line`, `__body`, `__roles`, `__cause` | One quiet italic line per symptom; opens to who feels it, the cause and its tags. Grouped by the framework part where it starts. Full list and evidence: `docs/SYMPTOMS.md`. |
+| Symptoms | `.symptom-group`; `.symptom` (`<details data-collapse>`), `__line`, `__body`, `__cause` | One quiet italic line per symptom; slides open to the cause and its tags (`data-collapse`, timing from `--collapse-dur` / `--collapse-ease`). Eight, in one list in the section above the framework. Full list and evidence: `docs/SYMPTOMS.md`. |
 | Diagram | `.diagram`, `__svg--wide/--phone`, `__frame`, `__layer`, `__pillar`, `__name`, `__desc`, `__label`, `__frame-label` | Builds itself when revealed. |
 | Dialog | `.dialog`, `__card`, `__title`, `__lead`, `__close`, `__submit`, `__note`; `.field`, `__label`, `__input` | `.is-open`. Focus is trapped inside. |
 
@@ -136,7 +136,7 @@ Naming follows BEM: `block__element--modifier`. State classes start with `is-`. 
 
 - **One `<h1>`**, visually hidden, that says what the site is: "The Collective: operating model advisory in Amsterdam". The opening line of the film is the visual hero but not the page title.
 - **Text over the film and in the glass panels is not a heading** (`<p class="beat__title">`, `<p class="panel__title">`). It is cinema, not document structure, and repeating it as headings dilutes the outline.
-- **Sections below the film** carry the outline: `<h2>` per section, `<h3>` per symptom group, framework part and person.
+- **Sections below the film** carry the outline: `<h2>` per section, `<h3>` per framework part (`.part__name`, larger than anything inside the part) and person.
 - **Words people search for** live in the reading text and in tags, never stuffed into headings. When you add a concept, add it as a tag and, if it is central, to `knowsAbout` in the structured data.
 - **Anchors** (`#too-many-initiatives`, `#plan`, …) are stable: they can be linked from posts and future landing pages. Don't rename them casually.
 - **Address-dependent tags** (canonical, share image, sitemap, robots) are written by `tools/set_domain.py`; never hand-edit the block between the `seo:site-url` markers.
@@ -148,7 +148,7 @@ Everything the film does is in `assets/js/config.js`. Coordinates are pixels in 
 - **Chapters**: names in the timeline and where each ends.
 - **Camera**: two kinds of keyframe.
   - A *view* `{ t, cx, cy, fw, fh }`: a region that must fit on screen. Portrait screens get their own framing rules (`layout.portrait`).
-  - A *subject* `{ t, subject: [x0, y0, x1, y1], panel }`: a box fitted into the free space between the navigation and the top of the named panel, measured on every screen. The conductor uses this, so he is always entirely above his glass panel.
+  - A *subject* `{ t, subject: [x0, y0, x1, y1], panel }`: a box fitted into the free space between the navigation and the top of the named panel, measured on every screen. Plan (the full orchestra), Means (the musicians) and the conductor use this, so they are always entirely above their glass panel. An optional `portraitSubject` replaces the box on phones (Means uses it to stay close enough to see faces).
 - **Focus**: the parts of the model, each with a scroll range and sharp, lit spots; everything else is softened, dimmed and the subject gets a warm glow.
 - **Copy**: when each beat and line fades in and out. Keys match `data-beat` / `data-copy` in the HTML.
 - **Snap**: the stops where the film rests. Inside the film, one wheel gesture, swipe or arrow key moves to the next stop as a single eased camera move (longer moves take a little longer). After the last stop the page scrolls normally again; scrolling up from below re-enters at the last stop. A free scroll (scrollbar, a link) settles on the nearest stop. When you add a part of the model, add its stop here too.

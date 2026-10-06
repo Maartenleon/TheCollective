@@ -1,12 +1,25 @@
 # Symptoms: what leadership teams recognise
 
-The twenty statements in the "Sound familiar?" section of the site, with who feels each one most, where it starts in the framework, the cause, the concepts people search for, and the evidence that it is common.
+The twenty symptoms we work from, eight of which are on the site, with who feels each one most, where it starts in the framework, the cause, the concepts people search for, and the evidence that it is common.
 
-Use this file as the reference when you edit the section in `index.html`, write landing pages or articles, or pick statements for a deck or LinkedIn post. Statistics are here for our own confidence and for longer articles; the site itself does not quote them yet.
+Use this file as the reference when you edit them in `index.html`, write landing pages or articles, or pick statements for a deck or LinkedIn post. Statistics are here for our own confidence and for longer articles; the site itself does not quote them yet.
 
 **How to quote the evidence.** Several sources are older (Booz & Company 2011, Sull 2015, McKinsey 2014) or are vendor figures or forecasts (Planview, Zylo, Flexera; Gartner's ERP and AI predictions). Present them as "research shows", not as this year's numbers. Most samples are large, US-heavy companies; there is no Benelux-specific data. Avoid the popular "15% flow efficiency" figure: it has no solid evidence behind it.
 
-**Homepage shortlist** (covers all four parts and all four roles): too many initiatives, costs creeping up, can't tell if projects pay off, the same people everywhere, agile but not faster, everything reports green.
+**On the site** ("Sound familiar?", in this order, one per theme):
+
+| Theme | Symptom | Anchor |
+|---|---|---|
+| 01 Everyone is playing | Every project report says green, but the numbers that matter don't move. | `#everything-reports-green` |
+| 02 Another new piece | We're good at starting things. We almost never stop anything. | `#never-stop-anything` |
+| 03 An expensive orchestra | We can't tell whether our projects actually pay off. | `#projects-dont-pay-off` |
+| 04 The never-ending symphony | Our big programme is late, over budget, and still getting bigger. | `#programme-keeps-growing` |
+| 05 More and more to play | Our costs keep creeping up, especially IT, and nobody can tell me exactly why. | `#costs-creeping-up` |
+| 06 Playing ahead of the score | Most of our IT budget goes to keeping things running. There's very little left for anything new. | `#run-eats-the-budget` |
+| 07 Two orchestras, one stage | We merged two years ago, and we still run two of everything. | `#two-of-everything` |
+| 08 Who owns the music? | The new system went live, but the benefits in the business case never showed up. | `#benefits-never-showed-up` |
+
+The other twelve stay here for articles, decks and posts.
 
 
 ## Plan · the programme
@@ -80,6 +93,13 @@ Use this file as the reference when you edit the section in `index.html`, write 
 - **Cause:** Business and IT plan separately and hand work over the wall, instead of owning the outcome together.
 - **Concepts (tags):** Business–IT alignment, Product operating model, Digital operating model
 - **Evidence:** Where business and IT jointly own digital delivery, 71% of targets are met against 48% on average (Gartner, 2025).
+
+### 21. "We merged two years ago, and we still run two of everything."
+- **Anchor:** `#two-of-everything`
+- **Felt most by:** CEO, COO, CIO
+- **Cause:** The deal was integrated on paper: one name, one board. Nobody decided which processes, systems and teams become shared and which stay apart, so both keep running.
+- **Concepts (tags):** Post-merger integration, Operating model, Shared services
+- **Evidence:** Still to add. Draft line, not yet researched.
 
 
 ## Means · the orchestra

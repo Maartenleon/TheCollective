@@ -1,11 +1,11 @@
 # The Collective website: notes for Claude Code
 
-The website of The Collective, a two-person operating model advisory in Amsterdam (Maarten Stienstra and Kai Jacobse). A scroll-driven film of an orchestra in red dunes tells the idea; below it, the symptoms executives recognise, the framework, who we are and a contact form. Static HTML, CSS and JavaScript: no framework, no build step, no dependencies.
+The website of The Collective, a two-person operating model advisory in Amsterdam (Maarten Stienstra and Kai Jacobse). A scroll-driven film of an orchestra in red dunes tells the idea; below it, eight symptoms executives recognise, the framework, who we are and a contact form. Static HTML, CSS and JavaScript: no framework, no build step, no dependencies.
 
 ## Commands
 
 ```
-python3 -m http.server 8000                 # run locally, open http://localhost:8000
+python3 tools/serve.py                      # run locally, open http://localhost:8000 (no caching, plays the video in Safari)
 python3 tools/check.py                      # screenshots of every film stop and section (laptop + phone), fails on JS errors
 python3 tools/build_standalone.py           # dist/the-collective.html, one self-contained file for sharing
 python3 tools/set_domain.py https://…       # canonical URL, share image, structured data, robots.txt, sitemap.xml
@@ -15,7 +15,7 @@ python3 tools/set_domain.py https://…       # canonical URL, share image, stru
 
 ## Where things live
 
-- Words: `index.html` only. Symptoms are also documented, with evidence and sources, in `docs/SYMPTOMS.md`; keep both in step.
+- Words: `index.html` only. The site shows eight symptoms; all twenty are documented, with evidence and sources, in `docs/SYMPTOMS.md`; keep both in step.
 - Colours, type, space, radii, motion: `assets/css/tokens.css` only. Components read tokens; component-only knobs are custom properties declared at the top of the component's root rule.
 - Everything the film does and when (camera, focus, text timing, snap stops, panels): `assets/js/config.js`.
 - Engines (`story.js`, `snap.js`, `ui.js`) are generic: no copy, colours or timings in them.
@@ -39,7 +39,7 @@ Thesis: problems come from a missing part or from parts that don't connect. "Gre
 - Keep the continuous scroll film on every screen; a separate phone layout was tried and rejected. Inside the film one gesture moves to the next stop (`snap.js`).
 - Every text block over the film uses the same title and italic line style as the opening; the closing question is centred in the viewport.
 - Glass panels sit bottom-left above the timeline; no divider lines inside glass; sans text in panels is the same 12px as the brand and timeline.
-- The conductor close-up uses a *subject* keyframe so he is always entirely above his panel. Keep it that way when changing panels or copy.
+- Plan, Means and the conductor close-up use *subject* keyframes so they are always entirely above their panel. Keep it that way when changing panels or copy.
 - The lightest colour must never look beige. Vermilion (the conductor's coat) is the one accent: at most once per view.
 - Related concepts are quiet pills, not links.
 - Fonts: EB Garamond (serif) and Restart Soft (sans, commercial, not yet licensed; Figtree stands in).

@@ -44,7 +44,7 @@ async def run() -> int:
                 await page.evaluate(f"TC.story.go({stop})")
                 await page.wait_for_timeout(1400)
                 await page.screenshot(path=OUT / f"{name}-{i:02d}-stop-{stop:.3f}.jpg", type="jpeg", quality=70)
-            for section in ["symptoms", "framework", "about", "contact-section"]:
+            for section in ["symptoms", "framework", "plan", "about", "contact-section"]:
                 await page.evaluate(f"document.getElementById('{section}').scrollIntoView()")
                 await page.wait_for_timeout(1800)
                 await page.screenshot(path=OUT / f"{name}-section-{section}.jpg", type="jpeg", quality=70)

@@ -24,7 +24,7 @@ assets/
     ui.js                      load state, reveals, navigation fade, contact dialog
     styleguide.js              styleguide page only
   img/
-    scene.jpg  scene-soft.jpg  finale.jpg  og.jpg (share image, 1200 × 630)
+    scene.jpg  scene-soft.jpg  finale.mp4 + finale-poster.jpg (closing video)  finale.jpg (unused)  og.jpg (share image, 1200 × 630)
   icons/                       favicon.svg, favicon-32.png, apple-touch-icon.png, icon-512.png
 docs/
   DESIGN-SYSTEM.md             tokens, components, rules, recipes
@@ -41,7 +41,7 @@ CLAUDE.md                      working notes for Claude Code
 Any static server works, for example:
 
 ```
-python3 -m http.server 8000
+python3 tools/serve.py
 ```
 
 then open http://localhost:8000. Opening `index.html` straight from disk also works.

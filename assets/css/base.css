@@ -14,7 +14,7 @@ body {
   text-rendering: optimizeLegibility;
 }
 
-h1, h2, h3, p, ul, figure { margin: 0; }
+h1, h2, h3, h4, p, ul, figure { margin: 0; }
 ul { padding: 0; list-style: none; }
 img, svg { max-width: 100%; }
 button { font: inherit; }

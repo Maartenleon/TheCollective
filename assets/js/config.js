@@ -7,7 +7,8 @@
 
    Units
    - Progress runs from 0 (top of the film) to 1 (end of the film).
-   - Image coordinates are pixels in the source image (scene.jpg is 2944 × 1560).
+   - Image coordinates are pixels in the source image (scene.jpg is 2944 × 1560,
+     the closing video finale.mp4 832 × 464).
    - A window [a, b, c, d] fades in between a and b and out between c and d.
    ========================================================================== */
 
@@ -17,7 +18,9 @@ TC.config = {
   images: {
     // sky and ground are sampled from each image; they fill the screen where the camera looks past its edges
     scene:  { src: "assets/img/scene.jpg",  soft: "assets/img/scene-soft.jpg", width: 2944, height: 1560, sky: "#8092A7", ground: "#1A0E0A" },
-    finale: { src: "assets/img/finale.jpg", width: 2944, height: 1648, sky: "#8196AC", ground: "#2A1B12" },
+    // the closing world is a looping video; src is its first frame, shown until the video plays
+    finale: { src: "assets/img/finale-poster.jpg", video: "assets/img/finale.mp4", loadFrom: 0.6,
+              width: 832, height: 464, sky: "#6984AD", ground: "#050502" },
   },
 
   /* Chapters shown in the timeline, in order */
@@ -34,16 +37,17 @@ TC.config = {
   /* Camera keyframes for the scene.
      Either a view:  { t, cx, cy, fw, fh }  centre point and the region that must fit on screen,
      or a subject:   { t, subject: [x0, y0, x1, y1], panel }  a box that is fitted into the free
-                     space above the named glass panel and below the navigation, on every screen. */
+                     space above the named glass panel and below the navigation, on every screen;
+                     an optional portraitSubject is used instead on portrait screens (phones). */
   camera: [
     { t: 0.000, cx: 1472, cy: 780,  fw: 2944, fh: 1560 },          // the whole orchestra in the dunes
     { t: 0.175, cx: 1472, cy: 860,  fw: 2700, fh: 1430 },          // slow drift while "It isn't." plays
-    { t: 0.215, cx: 1560, cy: 560,  fw: 2250, fh: 1120 },          // Plan: the horizon
-    { t: 0.290, cx: 1570, cy: 540,  fw: 2150, fh: 1080 },
-    { t: 0.325, cx: 1625, cy: 1250, fw: 680,  fh: 380 },           // Blueprint: the score on the stands
-    { t: 0.395, cx: 1627, cy: 1252, fw: 650,  fh: 365 },
-    { t: 0.430, cx: 1500, cy: 1255, fw: 1600, fh: 680 },           // Means: the musicians
-    { t: 0.500, cx: 1500, cy: 1258, fw: 1520, fh: 650 },
+    { t: 0.215, subject: [520, 820, 2440, 1445], panel: "plan" },  // Plan: the full orchestra under the dunes
+    { t: 0.290, subject: [560, 840, 2400, 1440], panel: "plan" },
+    { t: 0.325, cx: 1590, cy: 1290, fw: 900,  fh: 400 },           // Blueprint: the scores on the stands
+    { t: 0.395, cx: 1592, cy: 1292, fw: 860,  fh: 385 },
+    { t: 0.430, subject: [760, 1225, 2320, 1440], portraitSubject: [1330, 1225, 2320, 1440], panel: "means" },   // Means: the musicians, all above the panel
+    { t: 0.500, subject: [790, 1230, 2290, 1438], portraitSubject: [1360, 1230, 2300, 1438], panel: "means" },   // (phones: conductor and cellos, large enough to see)
     { t: 0.535, subject: [1300, 1150, 1545, 1435], panel: "orchestration" },   // Orchestration: the conductor, head to podium
     { t: 0.615, subject: [1310, 1155, 1535, 1430], panel: "orchestration" },
     { t: 0.705, cx: 1472, cy: 940,  fw: 2800, fh: 1480 },          // the whole again
@@ -54,8 +58,8 @@ TC.config = {
   // portraitLift (optional, any view keyframe) overrides layout.portrait.lift: negative values
   // sit the orchestra lower, here to keep it clear of the centred closing question on phones
   finaleCamera: [
-    { t: 0.800, cx: 1472, cy: 800, fw: 2150, fh: 1200, portraitLift: -0.14 },
-    { t: 1.000, cx: 1472, cy: 824, fw: 2944, fh: 1648, portraitLift: -0.14 },
+    { t: 0.800, cx: 420, cy: 226, fw: 610, fh: 340, portraitLift: -0.14 },
+    { t: 1.000, cx: 416, cy: 232, fw: 832, fh: 464, portraitLift: -0.14 },
   ],
 
   transitions: {
@@ -80,8 +84,8 @@ TC.config = {
     },
     panel: { on: 0.6, off: 0.3 },              // hysteresis so panels never flicker
     parts: [
-      { key: "plan",          range: [0.207, 0.296], glow: 0.55, spots: [[1600, 520, 1150, 330]] },
-      { key: "blueprint",     range: [0.318, 0.402], spots: [[1478, 1292, 38, 30], [1786, 1300, 40, 30]] },
+      { key: "plan",          range: [0.207, 0.296], glow: 0.55, spots: [[1530, 1335, 830, 125]] },
+      { key: "blueprint",     range: [0.318, 0.402], spots: [[1478, 1292, 38, 30], [1585, 1334, 30, 22], [1786, 1300, 40, 30]] },
       { key: "means",         range: [0.424, 0.506], spots: [[1060, 1330, 330, 90], [1975, 1330, 340, 95]] },
       { key: "orchestration", range: [0.528, 0.622], spots: [[1421, 1300, 70, 115]] },
     ],
@@ -91,9 +95,10 @@ TC.config = {
   copy: {
     "opening":     [-0.02, -0.01, 0.080, 0.105],   // visible at rest
     "twist":       [0.105, 0.122, 0.190, 0.204],
-    "symptom-1":   [0.124, 0.138, 2, 2],
-    "symptom-2":   [0.142, 0.156, 2, 2],
-    "symptom-3":   [0.160, 0.174, 2, 2],
+    "twist-1":     [0.122, 0.134, 2, 2],
+    "twist-2":     [0.136, 0.148, 2, 2],
+    "twist-3":     [0.150, 0.162, 2, 2],
+    "twist-4":     [0.164, 0.176, 2, 2],
     "whole":       [0.668, 0.705, 0.790, 0.815],
     "whole-sub":   [0.722, 0.756, 2, 2],
     "question":    [0.868, 0.905, 2, 2],
@@ -109,7 +114,7 @@ TC.config = {
   layout: {
     landscape: { referenceAspect: 1.6, minWidthShare: 0.52 },   // narrower screens frame a little tighter
     portrait: {
-      wideFrom: 2000, closeFrom: 1600,         // views wider than wideFrom are wide shots, narrower than closeFrom close-ups
+      wideFrom: 0.679, closeFrom: 0.543,       // share of the image's width: views wider than wideFrom are wide shots, narrower than closeFrom close-ups
       widthShare: [0.36, 0.55],                // share of the view's width that fills the screen (wide, close-up)
       skyRoom: 0.22,                           // wide shots may show sky above the image (share of screen height)
       band: [0.17, 0.72],                      // dark band allowed below the image (wide, close-up)
@@ -133,7 +138,7 @@ TC.config = {
   snap: {
     stops: [
       0.000,   // opening
-      0.180,   // "It isn't." with all three lines
+      0.180,   // "It isn't." with all four lines
       0.250,   // Plan
       0.360,   // Blueprint
       0.465,   // Means

@@ -47,7 +47,8 @@
 .section__cta { margin-top: var(--space-l); }
 
 /* ---- Framework parts --------------------------------------------------- */
-.part__title { margin-bottom: var(--space-s); font: var(--weight-regular) var(--text-h3-lg)/var(--leading-snug) var(--font-serif); }
+.part__name  { margin-bottom: var(--space-2xs); font: var(--weight-regular) var(--text-part)/var(--leading-heading) var(--font-serif); }
+.part__title { margin-bottom: var(--space-m); font: italic var(--weight-regular) var(--text-lede)/var(--leading-lede) var(--font-serif); color: var(--color-text-body); }
 
 /* ---- People ------------------------------------------------------------ */
 .people { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-xl); }

@@ -3,6 +3,7 @@
    - load state:  html.is-loading → html.is-loaded (starts the entrance)
    - reveal:      [data-reveal] gets .is-visible when it scrolls into view
    - navigation:  html.is-past-story once the film has scrolled away
+   - collapse:    <details data-collapse> slide open and shut (timing: --collapse-dur, --collapse-ease)
    - dialog:      [data-dialog], opened by any [data-contact]
    ========================================================================== */
 
@@ -43,6 +44,46 @@
     window.addEventListener("scroll", check, { passive: true });
     check();
   }
+
+  /* ---- Collapsible details: slide open and shut, content fades with it - */
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+  const toMs = value => (value.trim().endsWith("ms") ? 1 : 1000) * parseFloat(value);
+
+  document.querySelectorAll("details[data-collapse]").forEach(details => {
+    const summary = details.querySelector("summary");
+    const body = summary.nextElementSibling;
+    let slide = null, fade = null;
+
+    summary.addEventListener("click", event => {
+      if (reduceMotion.matches || !details.animate) return;   // plain toggle
+      event.preventDefault();
+      const opening = !details.open || details.classList.contains("is-closing");
+      const from = details.offsetHeight;                      // also mid-slide
+      slide?.cancel();
+      details.open = true;
+      details.classList.toggle("is-closing", !opening);
+      const full = details.offsetHeight;
+      const to = opening ? full : full - body.offsetHeight;
+      const style = getComputedStyle(details);
+      const timing = { duration: toMs(style.getPropertyValue("--collapse-dur")), easing: style.getPropertyValue("--collapse-ease").trim() };
+      const shown = { opacity: 1, transform: "none" };
+      const hidden = { opacity: 0, transform: `translateY(${style.getPropertyValue("--rise-entrance").trim() || "0px"})` };
+      const current = { opacity: getComputedStyle(body).opacity };
+      fade?.cancel();
+      fade = body.animate(opening ? [hidden, shown] : [current, hidden],     // opening always replays from the start
+        { ...timing, fill: "forwards" });
+      details.style.overflow = "hidden";
+      slide = details.animate({ height: [`${from}px`, `${to}px`] }, timing);
+      slide.onfinish = () => {
+        fade?.cancel();                                       // content back to its resting state
+        fade = null;
+        if (!opening) details.open = false;
+        details.classList.remove("is-closing");
+        details.style.overflow = "";
+        slide = null;
+      };
+    });
+  });
 
   /* ---- Contact dialog --------------------------------------------------- */
   const dialog = document.querySelector("[data-dialog]");
