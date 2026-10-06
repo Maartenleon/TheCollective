@@ -22,7 +22,7 @@ Use this file as the reference when you edit them in `index.html`, write landing
 The other twelve stay here for articles, decks and posts.
 
 
-## Plan · the programme
+## Plan · the piece
 
 *Are we working on the right things?*
 
@@ -48,7 +48,7 @@ The other twelve stay here for articles, decks and posts.
 - **Evidence:** Gartner predicts that through 2026 organisations will abandon 60% of AI projects not supported by AI-ready data (forecast, 2025).
 
 
-## Blueprint · the score
+## Blueprint · the notes
 
 *Is it clear who owns what?*
 

@@ -43,9 +43,9 @@ TC.config = {
   camera: [
     { t: 0.000, cx: 1472, cy: 824,  fw: 2944, fh: 1648, portraitCx: 1610 },   // the whole orchestra on its stage, hills behind
     { t: 0.175, cx: 1500, cy: 930,  fw: 2600, fh: 1455, portraitCx: 1610 },   // slow drift while "It isn't." plays
-    { t: 0.215, subject: [1080, 990, 2400, 1330], panel: "plan" }, // Plan: the full orchestra, and the sign as it slides on
-    { t: 0.290, subject: [1095, 1000, 2385, 1326], panel: "plan" },
-    { t: 0.325, cx: 1694, cy: 1205, fw: 580,  fh: 250 },           // Blueprint: the scores on the stands
+    { t: 0.215, subject: [1080, 990, 2400, 1330], portraitSubject: [1860, 1030, 2350, 1328], panel: "plan" }, // Plan: the full orchestra, and the sign as it slides on
+    { t: 0.290, subject: [1095, 1000, 2385, 1326], portraitSubject: [1875, 1036, 2345, 1326], panel: "plan" },   // (phones: closer, so the sign can be read)
+    { t: 0.325, cx: 1694, cy: 1205, fw: 580,  fh: 250 },           // Blueprint: the notes on the stands
     { t: 0.395, cx: 1696, cy: 1206, fw: 560,  fh: 242 },
     { t: 0.430, subject: [1120, 1095, 2110, 1300], portraitSubject: [1430, 1095, 2110, 1300], panel: "means" },   // Means: the musicians, all above the panel
     { t: 0.500, subject: [1135, 1100, 2095, 1298], portraitSubject: [1445, 1100, 2100, 1298], panel: "means" },   // (phones: conductor and cellos, large enough to see)

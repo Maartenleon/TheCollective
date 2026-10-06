@@ -26,8 +26,8 @@ python3 tools/set_domain.py https://…       # canonical URL, share image, stru
 
 The orchestra is the organisation. It must play tonight's concert and be ready for next season's programme.
 
-- **Plan**, the programme: ambition, choices, goals. What we want to play, for our audience, the customer.
-- **Blueprint**, the score: the intended design on paper. Value streams, business capabilities, operating model, organisational design. What it takes to play it.
+- **Plan**, the piece: ambition, choices, goals. What we want to play, for our audience, the customer.
+- **Blueprint**, the notes: the intended design on paper. Value streams, business capabilities, operating model, organisational design. What it takes to play it.
 - **Means**, the orchestra: people, process, technology, spend. Shared by run (today) and change (tomorrow).
 - **Orchestration**, the conductor: plan, blueprint and means in motion, the day-to-day rhythm of decisions. What starts, what stops, who gets the people.
 

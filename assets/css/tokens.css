@@ -146,8 +146,8 @@
 /* Phones and narrow tablets: same system, adjusted distances */
 @media (max-width: 720px) {
   :root {
-    --panel-offset:    calc(100px + env(safe-area-inset-bottom, 0px));
-    --timeline-offset: calc(60px + env(safe-area-inset-bottom, 0px));
+    --panel-offset:    calc(76px + env(safe-area-inset-bottom, 0px));
+    --timeline-offset: calc(36px + env(safe-area-inset-bottom, 0px));
     --story-length:    1100vh;
     --text-h2:         1.85rem;
     --text-part:       1.75rem;
